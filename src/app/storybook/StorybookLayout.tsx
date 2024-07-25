@@ -13,9 +13,9 @@ const items: NavigationItemType[] = [
     href: '/storybook/button'
   },
   {
-    icon: 'AcademicCap',
-    labelText: 'About',
-    href: '/about'
+    icon: 'RectangleGroup',
+    labelText: 'Card',
+    href: '/storybook/card'
   }
 ]
 const Logo = () => {
