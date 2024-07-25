@@ -1,9 +1,11 @@
 import React, { ComponentProps, memo } from 'react'
 import { CardVariant } from './types'
+import { getLayerStyle, Layer } from '../LayerColor'
 
 type OwnProps<E extends React.ElementType> = {
   component?: E
   variant?: CardVariant
+  layer?: Layer
 }
 
 type Props<E extends React.ElementType> = OwnProps<E> &
@@ -14,21 +16,24 @@ const CardComponent = <E extends React.ElementType = 'div'>({
   className,
   component,
   variant = 'filled',
-  bg,
+  layer,
   ...props
 }: Props<E>) => {
   let style = ''
   if (variant === 'elevated') {
     style = getElevatedStyle({
-      hasAction: props.onClick || props.href
+      hasAction: props.onClick || props.href,
+      layer: layer
     })
   } else if (variant === 'filled') {
     style = getFilledStyle({
-      hasAction: props.onClick || props.href
+      hasAction: props.onClick || props.href,
+      layer: layer
     })
   } else {
     style = getOutlinedStyle({
-      hasAction: props.onClick || props.href
+      hasAction: props.onClick || props.href,
+      layer: layer
     })
   }
 
@@ -43,7 +48,14 @@ const CardComponent = <E extends React.ElementType = 'div'>({
 
 export const Card = memo(CardComponent) as typeof CardComponent
 
-const getElevatedStyle = ({ hasAction }: { hasAction: boolean }) => {
+const getElevatedStyle = ({
+  hasAction,
+  layer = 'surface-container-low'
+}: {
+  hasAction: boolean
+  layer?: Layer
+}) => {
+  const layerStyle = getLayerStyle(layer)
   let styles: string[] = [
     'text-left',
     'relative',
@@ -52,7 +64,7 @@ const getElevatedStyle = ({ hasAction }: { hasAction: boolean }) => {
     'rounded-xl',
     'p-4',
     'shadow-1dp',
-    'bg-surface-container-low'
+    layerStyle
   ]
   if (hasAction) {
     styles = [
@@ -93,7 +105,14 @@ const getElevatedStyle = ({ hasAction }: { hasAction: boolean }) => {
   return styles.join(' ')
 }
 
-const getFilledStyle = ({ hasAction }: { hasAction: boolean }) => {
+const getFilledStyle = ({
+  hasAction,
+  layer = 'surface-container-high'
+}: {
+  hasAction: boolean
+  layer?: Layer
+}) => {
+  const layerStyle = getLayerStyle(layer)
   let styles: string[] = [
     'text-left',
     'relative',
@@ -101,7 +120,7 @@ const getFilledStyle = ({ hasAction }: { hasAction: boolean }) => {
     'text-on-surface',
     'rounded-xl',
     'p-4',
-    'bg-surface-container-high'
+    layerStyle
   ]
   if (hasAction) {
     styles = [
@@ -142,7 +161,14 @@ const getFilledStyle = ({ hasAction }: { hasAction: boolean }) => {
   return styles.join(' ')
 }
 
-const getOutlinedStyle = ({ hasAction }: { hasAction: boolean }) => {
+const getOutlinedStyle = ({
+  hasAction,
+  layer = 'surface-container-low'
+}: {
+  hasAction: boolean
+  layer?: Layer
+}) => {
+  const layerStyle = getLayerStyle(layer)
   let styles: string[] = [
     'text-left',
     'relative',
@@ -152,7 +178,7 @@ const getOutlinedStyle = ({ hasAction }: { hasAction: boolean }) => {
     'p-4',
     'border',
     'border-outline-variant',
-    'bg-surface-container-low'
+    layerStyle
   ]
   if (hasAction) {
     styles = [

@@ -13,7 +13,7 @@ export const NavigationTopAppBar = ({ className, logo }: Props) => {
   }
   return (
     <TopAppBar
-      className={`md:hidden sticky top-0 z-[11] bg-surface-container ${className}`}
+      className={`sticky top-0 z-[11] bg-surface-container ${className}`}
       logo={logo}
       leadingIcon="Bars3"
       onLeadingIconClick={handleLeadingIconClick}
