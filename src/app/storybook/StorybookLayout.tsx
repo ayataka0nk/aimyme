@@ -5,20 +5,17 @@ const items: NavigationItemType[] = [
   {
     icon: 'RectangleGroup',
     labelText: 'AppBar',
-    href: '/storybook/appbar',
-    active: false
+    href: '/storybook/appbar'
   },
   {
     icon: 'RectangleGroup',
     labelText: 'Button',
-    href: '/storybook/button',
-    active: true
+    href: '/storybook/button'
   },
   {
     icon: 'AcademicCap',
     labelText: 'About',
-    href: '/about',
-    active: false
+    href: '/about'
   }
 ]
 const Logo = () => {

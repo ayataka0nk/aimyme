@@ -24,7 +24,7 @@ export type NavigationItemType = {
   href?: string
   onClick?: React.MouseEventHandler<HTMLButtonElement>
   externalHref?: string
-  active: boolean
+  active?: boolean
 }
 
 export type NavigationProps = {
