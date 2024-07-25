@@ -1,6 +1,7 @@
 import { TextFieldProps } from './type'
 import { Icon, IconType } from '../Icon'
 import { forwardRef } from 'react'
+import { getLayerStyle } from '../LayerColor'
 
 export const FilledTextField = forwardRef<HTMLInputElement, TextFieldProps>(
   (
@@ -12,6 +13,7 @@ export const FilledTextField = forwardRef<HTMLInputElement, TextFieldProps>(
       supportingText,
       readOnly = false,
       className,
+      layer = 'surface-container-highest',
       ...props
     },
     ref
@@ -21,6 +23,7 @@ export const FilledTextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const inputStyles = getInputStyles(icon, error, readOnly)
     const supportingTextStyles = getSupportingTextStyles(error)
     const inputWrapper = getInputWrapperStyles()
+    const layerStyle = getLayerStyle(layer)
     return (
       <div className={`relative ${className}`}>
         {icon && <Icon variant="outline" type={icon} className={iconStyle} />}
@@ -29,7 +32,7 @@ export const FilledTextField = forwardRef<HTMLInputElement, TextFieldProps>(
           <input
             ref={ref}
             id={id}
-            className={`${inputStyles} bg-surface-container-highest`}
+            className={`${inputStyles} ${layerStyle}`}
             placeholder=""
             readOnly={readOnly}
             {...props}
@@ -56,7 +59,6 @@ const getIconStyle = (error?: string) => {
     'w-6',
     'h-6',
     'z-[1]',
-
     'pointer-events-none'
   ]
   if (error) {

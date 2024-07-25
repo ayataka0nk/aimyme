@@ -1,6 +1,7 @@
 import { TextFieldProps } from './type'
 import { Icon, IconType } from '../Icon'
 import { forwardRef } from 'react'
+import { getLayerStyle } from '../LayerColor'
 
 export const OutlinedTextField = forwardRef<HTMLInputElement, TextFieldProps>(
   (
@@ -13,6 +14,7 @@ export const OutlinedTextField = forwardRef<HTMLInputElement, TextFieldProps>(
       readOnly,
       className,
       placeholder,
+      layer = 'surface',
       ...props
     },
     ref
@@ -22,9 +24,10 @@ export const OutlinedTextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const iconStyle = getIconStyle(error)
     const supportingTextStyles = getSupportingTextStyles(error)
     const inputWrapper = getInputWrapperStyles()
+    const layerStyle = getLayerStyle(layer)
     return (
       <div className={`relative ${className}`}>
-        <div className={`${inputWrapper} bg-surface`}>
+        <div className={`${inputWrapper} ${layerStyle}`}>
           <input
             ref={ref}
             id={id}
@@ -34,7 +37,7 @@ export const OutlinedTextField = forwardRef<HTMLInputElement, TextFieldProps>(
             {...props}
           />
           {label && (
-            <label htmlFor={id} className={`${labelStyles} bg-surface`}>
+            <label htmlFor={id} className={`${labelStyles} ${layerStyle}`}>
               {label}
             </label>
           )}
