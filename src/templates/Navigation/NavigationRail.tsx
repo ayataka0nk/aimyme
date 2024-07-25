@@ -1,3 +1,4 @@
+'use client'
 import { NavigationProps } from '@/components/type'
 import Link from 'next/link'
 import {
@@ -8,6 +9,7 @@ import {
 } from '@/components/Navigation/NavigationRail'
 import { Button } from '@/components/Button'
 import { NavigationRailButton } from './NavigationRailButton'
+import { usePathname } from 'next/navigation'
 
 export const NavigationRail = ({
   className,
@@ -16,6 +18,7 @@ export const NavigationRail = ({
 }: NavigationProps & {
   className?: string
 }) => {
+  const pathname = usePathname()
   return (
     <nav
       className={`flex-col items-center w-20 bg-surface-container h-screen overflow-y-auto ${className} `}
@@ -49,6 +52,7 @@ export const NavigationRail = ({
       <NavigationRailItems>
         {items.map((item, index) => {
           if (item.href) {
+            const active = item.href.startsWith(pathname)
             return (
               <NavigationRailItem
                 key={index}
@@ -56,7 +60,7 @@ export const NavigationRail = ({
                 labelText={item.labelText}
                 href={item.href}
                 component={Link}
-                active={item.active}
+                active={active}
               />
             )
           } else if (item.onClick) {
@@ -66,7 +70,6 @@ export const NavigationRail = ({
                 icon={item.icon}
                 labelText={item.labelText}
                 onClick={item.onClick}
-                active={item.active}
                 component="button"
                 type="button"
               />
@@ -78,7 +81,6 @@ export const NavigationRail = ({
                 icon={item.icon}
                 labelText={item.labelText}
                 href={item.externalHref}
-                active={item.active}
                 component="a"
               />
             )

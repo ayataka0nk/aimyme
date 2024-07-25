@@ -25,7 +25,7 @@ const TopAppBarComponent = ({
 }
 
 const getStyle = () => {
-  return 'flex h-14 items-center min-w-full'
+  return 'flex h-14 items-center'
 }
 
 export const TopAppBar = memo(TopAppBarComponent) as typeof TopAppBarComponent

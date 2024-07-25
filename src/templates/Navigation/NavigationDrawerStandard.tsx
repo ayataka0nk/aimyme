@@ -1,3 +1,4 @@
+'use client'
 import { NavigationProps } from '@/components/type'
 import Link from 'next/link'
 import {
@@ -7,6 +8,7 @@ import {
   NavigationDrawerItems
 } from '@/components/Navigation/NavigationDrawer'
 import { Button } from '@/components/Button'
+import { usePathname } from 'next/navigation'
 
 export const NavigationDrawerStandard = ({
   logo,
@@ -16,6 +18,8 @@ export const NavigationDrawerStandard = ({
 }: NavigationProps & {
   className?: string
 }) => {
+  const pathname = usePathname()
+
   return (
     <nav
       className={`${className} w-[360px] bg-surface-container h-screen overflow-y-auto`}
@@ -49,6 +53,7 @@ export const NavigationDrawerStandard = ({
       <NavigationDrawerItems>
         {items.map((item, index) => {
           if (item.href) {
+            const active = item.href.startsWith(pathname)
             return (
               <NavigationDrawerItem
                 key={index}
@@ -56,7 +61,7 @@ export const NavigationDrawerStandard = ({
                 labelText={item.labelText}
                 href={item.href}
                 component={Link}
-                active={item.active}
+                active={active}
               />
             )
           } else if (item.onClick) {
@@ -67,7 +72,6 @@ export const NavigationDrawerStandard = ({
                 labelText={item.labelText}
                 onClick={item.onClick}
                 component="button"
-                active={item.active}
               />
             )
           } else if (item.externalHref) {
@@ -78,7 +82,6 @@ export const NavigationDrawerStandard = ({
                 labelText={item.labelText}
                 href={item.externalHref}
                 component="a"
-                active={item.active}
               />
             )
           } else {

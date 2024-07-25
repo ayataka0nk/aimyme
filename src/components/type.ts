@@ -31,5 +31,4 @@ export type NavigationProps = {
   logo: React.ReactNode
   action?: NavigationActionType
   items: NavigationItemType[]
-  fabHidden?: boolean
 }

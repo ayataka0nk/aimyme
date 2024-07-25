@@ -1,9 +1,13 @@
 import { NavigationActionType, NavigationItemType } from '@/components/type'
-import { NavigationFAB } from '@/templates/Navigation/NavigationFAB'
-import { Navigations } from '@/templates/Navigation/Navigations'
-import { NavigationTopAppBar } from '@/templates/Navigation/NavigationTopAppBar'
+import { SinglePaneLayout } from '@/templates/Layout/SinglePaneLayout'
 
 const items: NavigationItemType[] = [
+  {
+    icon: 'RectangleGroup',
+    labelText: 'AppBar',
+    href: '/storybook/appbar',
+    active: false
+  },
   {
     icon: 'RectangleGroup',
     labelText: 'Button',
@@ -27,13 +31,8 @@ type Props = {
 }
 export const StorybookLayout = ({ children, action }: Props) => {
   return (
-    <div className="flex">
-      <NavigationFAB action={action} />
-      <Navigations logo={<Logo />} items={items} action={action} />
-      <div>
-        <NavigationTopAppBar logo={<Logo />} />
-        {children}
-      </div>
-    </div>
+    <SinglePaneLayout logo={<Logo />} action={action} items={items}>
+      {children}
+    </SinglePaneLayout>
   )
 }

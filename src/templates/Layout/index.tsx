@@ -1,0 +1,1 @@
+export { SinglePaneLayout } from './SinglePaneLayout'

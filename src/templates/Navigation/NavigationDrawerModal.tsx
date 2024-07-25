@@ -12,6 +12,7 @@ import {
   NavigationDrawerModalHeader,
   NavigationDrawerModalScrim
 } from '@/components/Navigation/NavigationDrawer'
+import { usePathname } from 'next/navigation'
 
 export const NavigationDrawerModalTemplate = ({
   logo,
@@ -24,6 +25,7 @@ export const NavigationDrawerModalTemplate = ({
   const handleNavigationDrawerModalScrimClick = () => {
     setIsDrawerModalOpen(false)
   }
+  const pathname = usePathname()
   return (
     <>
       <NavigationDrawerModalScrim
@@ -37,6 +39,7 @@ export const NavigationDrawerModalTemplate = ({
         <NavigationDrawerItems>
           {items.map((item, index) => {
             if (item.href) {
+              const active = item.href.startsWith(pathname)
               return (
                 <NavigationDrawerItem
                   key={index}
@@ -44,7 +47,7 @@ export const NavigationDrawerModalTemplate = ({
                   labelText={item.labelText}
                   component={Link}
                   onClick={handleCloseClick}
-                  active={item.active}
+                  active={active}
                   {...{
                     href: item.href
                   }}
