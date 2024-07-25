@@ -9,7 +9,7 @@ import {
 import { TextField } from '../TextField'
 import { TextFieldProps } from '../TextField/type'
 import { ModalDateInput } from './ModalDateInput'
-import { useDialogState } from '../hooks/useDIalogState'
+import { useDialogState } from '../hooks/useDialogState'
 
 /**
  *

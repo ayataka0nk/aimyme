@@ -9,7 +9,7 @@ import {
 import { TextField } from '../TextField'
 import { TimePicker } from './TimePicker'
 import { Period } from './type'
-import { useDialogState } from '../hooks/useDIalogState'
+import { useDialogState } from '../hooks/useDialogState'
 import { TextFieldProps } from '../TextField/type'
 
 /**

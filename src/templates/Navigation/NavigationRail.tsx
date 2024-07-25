@@ -10,20 +10,26 @@ import {
 import { Button } from '@/components/Button'
 import { NavigationRailButton } from './NavigationRailButton'
 import { usePathname } from 'next/navigation'
+import { getLayerStyle, Layer } from '@/components/LayerColor'
 
 export const NavigationRail = ({
   className,
   action,
-  items
+  items,
+  layer = 'surface-container'
 }: NavigationProps & {
   className?: string
+  layer?: Layer
 }) => {
   const pathname = usePathname()
+  const layerStyle = getLayerStyle(layer)
   return (
     <nav
-      className={`flex-col items-center w-20 bg-surface-container h-screen overflow-y-auto ${className} `}
+      className={`flex-col items-center w-20 h-screen overflow-y-auto ${layerStyle} ${className} `}
     >
-      <NavigationRailHeader>
+      <NavigationRailHeader
+        className={`sticky top-0 left-0 z-10 ${layerStyle}`}
+      >
         <NavigationRailButton />
       </NavigationRailHeader>
 

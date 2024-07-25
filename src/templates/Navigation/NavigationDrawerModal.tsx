@@ -13,11 +13,15 @@ import {
   NavigationDrawerModalScrim
 } from '@/components/Navigation/NavigationDrawer'
 import { usePathname } from 'next/navigation'
+import { getLayerStyle, Layer } from '@/components/LayerColor'
 
 export const NavigationDrawerModalTemplate = ({
   logo,
-  items
-}: NavigationProps) => {
+  items,
+  layer = 'surface-container-low'
+}: NavigationProps & {
+  layer?: Layer
+}) => {
   const { isDrawerModalOpen, setIsDrawerModalOpen } = useNavigationContext()
   const handleCloseClick = () => {
     setIsDrawerModalOpen(false)
@@ -26,14 +30,21 @@ export const NavigationDrawerModalTemplate = ({
     setIsDrawerModalOpen(false)
   }
   const pathname = usePathname()
+  const layerStyle = getLayerStyle(layer)
   return (
     <>
       <NavigationDrawerModalScrim
         isDrawerModalOpen={isDrawerModalOpen}
         onClick={handleNavigationDrawerModalScrimClick}
       />
-      <NavigationDrawerModalContainer isOpen={isDrawerModalOpen}>
-        <NavigationDrawerModalHeader onCloseClick={handleCloseClick}>
+      <NavigationDrawerModalContainer
+        isOpen={isDrawerModalOpen}
+        className={`${layerStyle}`}
+      >
+        <NavigationDrawerModalHeader
+          onCloseClick={handleCloseClick}
+          className={`${layerStyle}`}
+        >
           {logo}
         </NavigationDrawerModalHeader>
         <NavigationDrawerItems>

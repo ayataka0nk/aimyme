@@ -26,9 +26,9 @@ export const NavigationDrawerHeader = ({
 const getStyle = ({ icon }: { icon?: IconType }) => {
   let styles = ['h-14', 'flex', 'items-center']
   if (icon) {
-    styles = [...styles, 'ml-0', 'md:ml-4']
+    styles = [...styles, 'pl-0', 'md:pl-4']
   } else {
-    styles = [...styles, 'ml-7']
+    styles = [...styles, 'pl-7']
   }
   return styles.join(' ')
 }

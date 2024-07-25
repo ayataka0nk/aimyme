@@ -9,22 +9,30 @@ import {
 } from '@/components/Navigation/NavigationDrawer'
 import { Button } from '@/components/Button'
 import { usePathname } from 'next/navigation'
+import { getLayerStyle, Layer } from '@/components/LayerColor'
 
 export const NavigationDrawerStandard = ({
   logo,
   action,
   items,
-  className
+  className,
+  layer = 'surface-container'
 }: NavigationProps & {
   className?: string
+  layer?: Layer
 }) => {
   const pathname = usePathname()
+  const layerStyle = getLayerStyle(layer)
 
   return (
     <nav
-      className={`${className} w-[360px] bg-surface-container h-screen overflow-y-auto`}
+      className={`w-[360px] h-screen overflow-y-auto ${className} ${layerStyle} `}
     >
-      <NavigationDrawerHeader>{logo}</NavigationDrawerHeader>
+      <NavigationDrawerHeader
+        className={`sticky top-0 left-0 z-[1] ${layerStyle}`}
+      >
+        {logo}
+      </NavigationDrawerHeader>
       {action && (
         <NavigationDrawerActionArea>
           {action.href && (

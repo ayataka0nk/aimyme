@@ -1,19 +1,20 @@
 import React from 'react'
 
 export const NavigationDrawerModalContainer = ({
+  className,
   children,
   isOpen
 }: {
+  className?: string
   children: React.ReactNode
   isOpen: boolean
 }) => {
   const styles = getStyles(isOpen)
-  return <nav className={styles.join(' ')}>{children}</nav>
+  return <nav className={`${styles.join(' ')} ${className}`}>{children}</nav>
 }
 
 const getStyles = (isOpen: boolean) => {
   let styles = [
-    'bg-surface-container-low',
     'fixed',
     'left-0',
     'top-0',
