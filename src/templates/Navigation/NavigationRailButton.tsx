@@ -1,6 +1,7 @@
 'use client'
-import { useNavigationContext } from '../NavigationContext'
-import { NavigationRailMenuIcon } from '../NavigationRail'
+
+import { NavigationRailMenuIcon } from '@/components/Navigation/NavigationRail'
+import { useNavigationContext } from './NavigationContext'
 
 export const NavigationRailButton = () => {
   const { setIsDrawerModalOpen } = useNavigationContext()

@@ -1,15 +1,17 @@
 'use client'
 import React, { MouseEventHandler } from 'react'
+
+import { NavigationProps } from '@/components/type'
+import { useNavigationContext } from './NavigationContext'
+
+import Link from 'next/link'
 import {
   NavigationDrawerItem,
-  NavigationDrawerItems
-} from '../NavigationDrawer'
-import { NavigationProps } from '@/components/type'
-import { useNavigationContext } from '../NavigationContext'
-import { NavigationDrawerModalHeader } from '../NavigationDrawer/NavigationDrawerModalHeader'
-import { NavigationDrawerModalContainer } from '../NavigationDrawer/NavigationDrawerModalContainer'
-import { NavigationDrawerModalScrim } from '../NavigationDrawer/NavigationDrawerModalScrim'
-import Link from 'next/link'
+  NavigationDrawerItems,
+  NavigationDrawerModalContainer,
+  NavigationDrawerModalHeader,
+  NavigationDrawerModalScrim
+} from '@/components/Navigation/NavigationDrawer'
 
 export const NavigationDrawerModalTemplate = ({
   logo,

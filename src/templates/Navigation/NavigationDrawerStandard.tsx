@@ -5,7 +5,7 @@ import {
   NavigationDrawerHeader,
   NavigationDrawerItem,
   NavigationDrawerItems
-} from '../NavigationDrawer'
+} from '@/components/Navigation/NavigationDrawer'
 import { Button } from '@/components/Button'
 
 export const NavigationDrawerStandard = ({

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import './globals.css'
 import './theme.css'
-import { NavigationContextProvider } from '@/components/Navigation/NavigationContext'
+import { NavigationContextProvider } from '@/templates/Navigation/NavigationContext'
 
 export const metadata: Metadata = {
   title: 'Create Next App',

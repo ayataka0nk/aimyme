@@ -1,5 +1,7 @@
-import { Navigations } from '@/components/Navigation/Template/Navigations'
 import { NavigationActionType, NavigationItemType } from '@/components/type'
+import { NavigationFAB } from '@/templates/Navigation/NavigationFAB'
+import { Navigations } from '@/templates/Navigation/Navigations'
+import { NavigationTopAppBar } from '@/templates/Navigation/NavigationTopAppBar'
 
 const items: NavigationItemType[] = [
   {
@@ -15,6 +17,9 @@ const items: NavigationItemType[] = [
     active: false
   }
 ]
+const Logo = () => {
+  return <p>AImyMe</p>
+}
 
 type Props = {
   children: React.ReactNode
@@ -23,8 +28,12 @@ type Props = {
 export const StorybookLayout = ({ children, action }: Props) => {
   return (
     <div className="flex">
-      <Navigations logo={<p>AImyMe</p>} items={items} action={action} />
-      <div>{children}</div>
+      <NavigationFAB action={action} />
+      <Navigations logo={<Logo />} items={items} action={action} />
+      <div>
+        <NavigationTopAppBar logo={<Logo />} />
+        {children}
+      </div>
     </div>
   )
 }

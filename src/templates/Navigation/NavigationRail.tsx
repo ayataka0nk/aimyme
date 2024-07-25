@@ -5,7 +5,7 @@ import {
   NavigationRailHeader,
   NavigationRailItem,
   NavigationRailItems
-} from '../NavigationRail'
+} from '@/components/Navigation/NavigationRail'
 import { Button } from '@/components/Button'
 import { NavigationRailButton } from './NavigationRailButton'
 
