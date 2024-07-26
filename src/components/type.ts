@@ -32,3 +32,5 @@ export type NavigationProps = {
   action?: NavigationActionType
   items: NavigationItemType[]
 }
+
+export type Breakpoint = 'sm' | 'md' | 'xp' | 'lg' | 'xl'

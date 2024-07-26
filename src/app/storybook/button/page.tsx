@@ -1,8 +1,9 @@
 import { Button } from '@/components/Button'
+import { StorybookLayout } from '../StorybookLayout'
 
 export default async function ButtonPage() {
   return (
-    <div>
+    <StorybookLayout>
       <div>
         <Button color="primary" variant="filled">
           Primary Filled
@@ -54,6 +55,6 @@ export default async function ButtonPage() {
           Extended FAB
         </Button>
       </div>
-    </div>
+    </StorybookLayout>
   )
 }

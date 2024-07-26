@@ -20,6 +20,11 @@ const items: NavigationItemType[] = [
   },
   {
     icon: 'RectangleGroup',
+    labelText: 'Search',
+    href: '/storybook/search'
+  },
+  {
+    icon: 'RectangleGroup',
     labelText: 'TextField',
     href: '/storybook/textfield'
   }
@@ -30,7 +35,7 @@ const Logo = () => {
 
 type Props = {
   children: React.ReactNode
-  action: NavigationActionType
+  action?: NavigationActionType
 }
 export const StorybookLayout = ({ children, action }: Props) => {
   return (
