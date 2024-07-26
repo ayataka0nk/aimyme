@@ -9,8 +9,6 @@ export const getProjects = async ({
 }: {
   keyword?: string
 }): Promise<ProjectSummary[]> => {
-  console.log('getProjects')
-  console.log('keyword', keyword)
   const { userId } = await getSessionOrFail()
   const where: Prisma.ProjectWhereInput = {
     ownerUserId: userId

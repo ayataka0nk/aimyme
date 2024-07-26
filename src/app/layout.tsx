@@ -18,7 +18,9 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className="light">
-        <NavigationContextProvider>{children}</NavigationContextProvider>
+        <NavigationContextProvider>
+          <Suspense>{children}</Suspense>
+        </NavigationContextProvider>
       </body>
     </html>
   )

@@ -8,9 +8,6 @@ export default async function ProjectsPage({
     keyword?: string
   }
 }) {
-  console.log('projects searchParams', searchParams)
   const projects = await getProjects({ keyword: searchParams.keyword })
-  console.log('projects', projects)
-  const keyword = searchParams.keyword || ''
-  return <ProjectsPanel projects={projects} searchedValue={keyword} />
+  return <ProjectsPanel projects={projects} />
 }

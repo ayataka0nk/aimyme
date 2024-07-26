@@ -1,4 +1,5 @@
-import ProjectsPage from './page'
+import { getProjects } from '@/services/projects'
+import { ProjectsPanel } from './ProjectsPanel'
 
 export default async function Fallback({
   searchParams
@@ -7,7 +8,6 @@ export default async function Fallback({
     keyword?: string
   }
 }) {
-  console.log('fallback!')
-  console.log(searchParams)
-  return <div>gomi</div>
+  const projects = await getProjects({ keyword: searchParams.keyword })
+  return <ProjectsPanel projects={projects} />
 }
