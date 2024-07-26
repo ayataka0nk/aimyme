@@ -28,7 +28,7 @@ export const DockedSearchInput = forwardRef<HTMLInputElement, Props>(
             onClick={onClearClick}
           />
           <IconButton
-            className="absolute w-6 h-6 left-1 z-10 text-on-surface peer-placeholder-shown:hidden"
+            className="absolute w-6 h-6 left-1 z-10 text-on-surface"
             icon="ArrowLeft"
             variant="standard"
             type="button"

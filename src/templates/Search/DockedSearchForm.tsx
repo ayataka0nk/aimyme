@@ -6,12 +6,14 @@ import { InputValueItem } from '@/components/Search/InputValueItem'
 import { SearchBar } from '@/components/Search/SearchBar'
 import { ComponentProps } from 'react'
 import { useSearchForm } from './useSearchForm'
+import { usePathname } from 'next/navigation'
 
 type Props = ComponentProps<'form'> & {
   name?: string
   historyKey: string
   layer?: Layer
   searchedValue?: string
+  placeholder?: string
   action?: (formData: FormData) => void
 }
 
@@ -20,6 +22,7 @@ export const DockedSearchForm = ({
   historyKey,
   layer = 'surface-container-highest',
   searchedValue,
+  placeholder,
   action,
   ...props
 }: Props) => {
@@ -69,9 +72,11 @@ export const DockedSearchForm = ({
     setIsViewOpen(true)
     setValue('')
   }
+  const pathname = usePathname()
 
   return (
     <form ref={formRef} {...props} action={handleSubmit}>
+      <input type="hidden" name="pathname" value={pathname} />
       <SearchBar
         type="button"
         className={`${isViewOpen ? 'hidden' : ''}`}
@@ -84,6 +89,7 @@ export const DockedSearchForm = ({
       />
       <SearchView
         ref={inputRef}
+        placeholder={placeholder}
         name={name}
         layer={layer}
         className={`${!isViewOpen ? 'hidden' : ''}`}

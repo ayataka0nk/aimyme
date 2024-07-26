@@ -58,7 +58,7 @@ export const NavigationRail = ({
       <NavigationRailItems>
         {items.map((item, index) => {
           if (item.href) {
-            const active = item.href.startsWith(pathname)
+            const active = pathname.startsWith(item.href)
             return (
               <NavigationRailItem
                 key={index}

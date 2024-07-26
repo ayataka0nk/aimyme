@@ -50,7 +50,7 @@ export const NavigationDrawerModalTemplate = ({
         <NavigationDrawerItems>
           {items.map((item, index) => {
             if (item.href) {
-              const active = item.href.startsWith(pathname)
+              const active = pathname.startsWith(item.href)
               return (
                 <NavigationDrawerItem
                   key={index}

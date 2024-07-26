@@ -14,10 +14,21 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid())
-  email    String @unique @map("email")
-  name     String @map("name")
-  password String @map("password")
+  id       String    @id @default(uuid())
+  email    String    @unique @map("email")
+  name     String    @map("name")
+  password String    @map("password")
+  projects Project[]
 
   @@map("users")
+}
+
+model Project {
+  id          String @id @default(uuid())
+  name        String @map("name")
+  description String @map("description")
+  ownerUserId String @map("owner_user_id")
+  ownerUser   User   @relation(fields: [ownerUserId], references: [id])
+
+  @@map("projects")
 }
