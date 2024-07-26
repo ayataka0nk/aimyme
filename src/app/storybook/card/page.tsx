@@ -2,7 +2,7 @@
 import { Card } from '@/components/Card'
 import { StorybookLayout } from '../StorybookLayout'
 
-export default async function CardPage() {
+export default function CardPage() {
   const handleClick = () => {
     console.log('clicked')
   }

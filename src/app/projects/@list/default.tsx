@@ -9,5 +9,5 @@ export default async function Fallback({
 }) {
   console.log('fallback!')
   console.log(searchParams)
-  return <ProjectsPage searchParams={searchParams} />
+  return <div>gomi</div>
 }

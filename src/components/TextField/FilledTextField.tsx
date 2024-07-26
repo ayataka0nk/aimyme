@@ -51,6 +51,8 @@ export const FilledTextField = forwardRef<HTMLInputElement, TextFieldProps>(
   }
 )
 
+FilledTextField.displayName = 'FilledTextField'
+
 const getIconStyle = (error?: string) => {
   let styles = [
     'absolute',

@@ -64,6 +64,8 @@ export const OutlinedTextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   }
 )
 
+OutlinedTextArea.displayName = 'OutlinedTextArea'
+
 const getLabelStyles = (icon?: IconType, error?: string) => {
   let styles = [
     // 共通

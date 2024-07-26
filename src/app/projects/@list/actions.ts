@@ -11,7 +11,6 @@ export const searchProjects = (formData: FormData) => {
   if (keyword) {
     urlSearchParams.set('keyword', keyword)
   }
-  console.log('pathname')
-  console.log(pathname)
+
   redirect(`${pathname}?${urlSearchParams.toString()}`)
 }

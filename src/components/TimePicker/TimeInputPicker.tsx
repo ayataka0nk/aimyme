@@ -117,6 +117,8 @@ export const TimeInputPicker = forwardRef<
   }
 )
 
+TimeInputPicker.displayName = 'TimeInputPicker'
+
 const getRootStyle = () => {
   const styles = ['p-[24px] rounded-[28px] w-fit']
   return styles.join(' ')

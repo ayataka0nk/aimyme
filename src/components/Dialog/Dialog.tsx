@@ -41,6 +41,8 @@ export const Dialog = forwardRef<HTMLDialogElement, DialogProps>(
   }
 )
 
+Dialog.displayName = 'Dialog'
+
 const getStyle = () => {
   const styles = [
     'p-6',

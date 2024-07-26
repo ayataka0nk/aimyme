@@ -68,6 +68,8 @@ export const FilledTextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   }
 )
 
+FilledTextArea.displayName = 'FilledTextArea'
+
 const getLabelStyles = (icon?: IconType, error?: string) => {
   let styles = [
     // 共通

@@ -70,6 +70,8 @@ export const SearchBar = forwardRef<HTMLButtonElement, Props>(
   }
 )
 
+SearchBar.displayName = 'SearchBar'
+
 const getContainerStyle = () => {
   let styles = [
     'block',

@@ -14,7 +14,6 @@ const getSnapshot = (key: string) => {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getServerSnapshot = (_key: string) => {
   return ''
 }

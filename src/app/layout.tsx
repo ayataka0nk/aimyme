@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import './theme.css'
 import { NavigationContextProvider } from '@/templates/Navigation/NavigationContext'
+import { Suspense } from 'react'
 
 export const metadata: Metadata = {
   title: 'Create Next App',

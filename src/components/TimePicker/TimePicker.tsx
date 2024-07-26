@@ -7,3 +7,5 @@ export const TimePicker = forwardRef<HTMLDivElement, TimePickerCommonProps>(
     return <TimeInputPicker ref={ref} {...props} />
   }
 )
+
+TimePicker.displayName = 'TimePicker'

@@ -1,7 +1,7 @@
 'use client'
 import { NavigationFAB, useNavigationContext } from '@/templates/Navigation'
 import { ProjectSummary } from '@/types'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useProjectNavigationAction } from '../navigationAction'
 import { searchProjects } from './actions'
 import { DockedSearchForm } from '@/templates/Search/DockedSearchForm'
@@ -18,7 +18,6 @@ export const ProjectsPanel = ({ projects, searchedValue }: Props) => {
   const handleMenuClick = () => {
     setIsDrawerModalOpen(true)
   }
-  const router = useRouter()
   const navigationAction = useProjectNavigationAction()
   const action = (payload: FormData) => {
     searchProjects(payload)

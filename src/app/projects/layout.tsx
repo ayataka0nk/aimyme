@@ -9,6 +9,8 @@ export default function ProjectsLayout({
 }: Readonly<{ list: React.ReactNode; children: React.ReactNode }>) {
   const action = useProjectNavigationAction()
   return (
-    <UserDoublePaneLayout action={action} list={list} children={children} />
+    <UserDoublePaneLayout action={action} list={list}>
+      {children}
+    </UserDoublePaneLayout>
   )
 }

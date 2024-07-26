@@ -18,6 +18,9 @@ export const TimePickerInputField = forwardRef<HTMLInputElement, Props>(
     )
   }
 )
+
+TimePickerInputField.displayName = 'TimePickerInputField'
+
 const getWrapperStyle = () => {
   const styles = [
     'relative',

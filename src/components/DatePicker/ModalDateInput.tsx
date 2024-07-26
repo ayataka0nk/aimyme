@@ -87,3 +87,4 @@ export const ModalDateInput = forwardRef<HTMLInputElement, Props>(
     )
   }
 )
+ModalDateInput.displayName = 'ModalDateInput'

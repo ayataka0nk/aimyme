@@ -1,15 +1,11 @@
-'use client'
-
 import { Logo } from '@/app/Logo'
 import { NavigationTopAppBar } from '@/templates/Navigation'
-import Link from 'next/link'
 
 type Props = {
   children: React.ReactNode
 }
 
 export default function layout({ children }: Props) {
-  const nn = Link
   return (
     <div>
       <NavigationTopAppBar

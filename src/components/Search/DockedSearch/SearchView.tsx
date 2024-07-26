@@ -21,3 +21,5 @@ export const SearchView = forwardRef<HTMLInputElement, Props>(
     )
   }
 )
+
+SearchView.displayName = 'SearchView'

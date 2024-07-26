@@ -39,3 +39,5 @@ export const DockedSearchInput = forwardRef<HTMLInputElement, Props>(
     )
   }
 )
+
+DockedSearchInput.displayName = 'DockedSearchInput'

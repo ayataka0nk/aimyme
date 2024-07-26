@@ -213,3 +213,5 @@ export const DateFieldModal = forwardRef<HTMLInputElement, Props>(
     )
   }
 )
+
+DateFieldModal.displayName = 'DateFieldModal'

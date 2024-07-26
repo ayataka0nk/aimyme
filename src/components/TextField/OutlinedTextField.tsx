@@ -51,6 +51,8 @@ export const OutlinedTextField = forwardRef<HTMLInputElement, TextFieldProps>(
   }
 )
 
+OutlinedTextField.displayName = 'OutlinedTextField'
+
 const getLabelStyles = (
   icon?: IconType,
   error?: string,
