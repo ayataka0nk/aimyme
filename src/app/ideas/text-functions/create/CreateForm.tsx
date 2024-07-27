@@ -1,11 +1,11 @@
 'use client'
 
 import { useFormState } from 'react-dom'
-import { storeTextFunctionAction } from './actions'
 import { TextField } from '@/components/TextField'
 import { TextArea } from '@/components/TextArea'
 import { Button } from '@/components/Button'
 import { useSearchParams } from 'next/navigation'
+import { storeTextFunctionAction } from '../actions'
 
 export const TextFunctionCreateForm = () => {
   const [state, dispatch] = useFormState(storeTextFunctionAction, undefined)

@@ -6,7 +6,10 @@ import { Button } from '@/components/Button'
 import { useSearchParams } from 'next/navigation'
 import { TextFunctionDefinition } from '@/types'
 import { useActionState } from 'react'
-import { updateTextFunctionAction } from './actions'
+import {
+  deleteTextFunctionAction,
+  updateTextFunctionAction
+} from '../../actions'
 
 export const TextFunctionEditForm = ({
   datum
@@ -16,34 +19,47 @@ export const TextFunctionEditForm = ({
   const [state, dispatch] = useActionState(updateTextFunctionAction, undefined)
   const searchParams = useSearchParams()
   return (
-    <form action={dispatch}>
-      <input type="hidden" name="id" value={datum.id} />
-      <div>
-        <TextField
-          name="name"
-          label="名称"
-          defaultValue={state?.values?.name ?? datum.name}
-          error={state?.errors?.name}
+    <>
+      <form action={dispatch}>
+        <input type="hidden" name="id" value={datum.id} />
+        <div>
+          <TextField
+            name="name"
+            label="名称"
+            defaultValue={state?.values?.name ?? datum.name}
+            error={state?.errors?.name}
+          />
+        </div>
+        <div>
+          <TextArea
+            name="definition"
+            label="定義"
+            defaultValue={state?.values?.definition ?? datum.definition}
+            error={state?.errors?.definition}
+          />
+        </div>
+        <input
+          type="hidden"
+          name="searchParams"
+          value={searchParams.toString()}
         />
-      </div>
-      <div>
-        <TextArea
-          name="definition"
-          label="定義"
-          defaultValue={state?.values?.definition ?? datum.definition}
-          error={state?.errors?.definition}
+        <div className="flex justify-end">
+          <Button type="submit" icon="DocumentCheck">
+            保存する
+          </Button>
+        </div>
+      </form>
+      <form action={deleteTextFunctionAction}>
+        <input type="hidden" name="id" value={datum.id} />
+        <input
+          type="hidden"
+          name="searchParams"
+          value={searchParams.toString()}
         />
-      </div>
-      <input
-        type="hidden"
-        name="searchParams"
-        value={searchParams.toString()}
-      />
-      <div className="flex justify-end">
-        <Button type="submit" icon="DocumentCheck">
-          保存する
+        <Button type="submit" icon="Trash" color="tertiary">
+          削除する
         </Button>
-      </div>
-    </form>
+      </form>
+    </>
   )
 }
