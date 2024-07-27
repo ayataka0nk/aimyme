@@ -7,7 +7,7 @@ import { useSearchForm } from './useSearchForm'
 export const SearchForm = ({
   name = 'keyword',
   historyKey,
-  layer = 'surface-container-highest',
+  layer = 'surface-container-lowest',
   searchedValue,
   placeholder,
   action,
@@ -63,7 +63,7 @@ export const SearchForm = ({
   if (breakpoint === 'sm') {
     return (
       <ScreenSearchForm
-        className="mb-4 z-[1] sticky top-2 md:hidden"
+        className={`mb-4 z-[1] sticky top-2 md:hidden ${className}`}
         inputRef={inputRef}
         submitButtonRef={submitButtonRef}
         formRef={formRef}
@@ -85,7 +85,7 @@ export const SearchForm = ({
   } else {
     return (
       <DockedSearchForm
-        className="mb-4 z-[1] sticky top-2 hidden md:block"
+        className={`mb-4 z-[1] sticky top-2 hidden md:block ${className}`}
         inputRef={inputRef}
         submitButtonRef={submitButtonRef}
         formRef={formRef}
