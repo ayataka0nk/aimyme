@@ -1,15 +1,13 @@
 'use client'
 
-import { useFormState } from 'react-dom'
 import { TextField } from '@/components/TextField'
 import { TextArea } from '@/components/TextArea'
 import { Button } from '@/components/Button'
-import { useSearchParams } from 'next/navigation'
 import { storeTextFunctionAction } from '../actions'
+import { useActionState } from 'react'
 
 export const TextFunctionCreateForm = () => {
-  const [state, dispatch] = useFormState(storeTextFunctionAction, undefined)
-  const searchParams = useSearchParams()
+  const [state, dispatch] = useActionState(storeTextFunctionAction, undefined)
   return (
     <form action={dispatch}>
       <div>
@@ -28,11 +26,6 @@ export const TextFunctionCreateForm = () => {
           error={state?.errors?.definition}
         />
       </div>
-      <input
-        type="hidden"
-        name="searchParams"
-        value={searchParams.toString()}
-      />
       <div className="flex justify-end">
         <Button type="submit" icon="DocumentCheck">
           保存する

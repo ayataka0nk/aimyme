@@ -7,6 +7,7 @@ import {
   storeTextFunction,
   updateTextFunction
 } from '@/services/textFunctions'
+import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
@@ -21,7 +22,7 @@ export const storeTextFunctionAction = async (
   const data = new SafeFormData(formData)
   const name = data.getString('name')
   const definition = data.getString('definition')
-  const searchParams = data.getString('searchParams')
+  const searchParams = headers().get('x-search-params')
   try {
     const validated = StoreSchema.parse({ name, definition })
     const id = await storeTextFunction(validated)
@@ -58,7 +59,7 @@ export const updateTextFunctionAction = async (
   const id = data.getString('id')
   const name = data.getString('name')
   const definition = data.getString('definition')
-  const searchParams = data.getString('searchParams')
+  const searchParams = headers().get('x-search-params')
   try {
     const validated = UpdateSchema.parse({ id, name, definition })
     await updateTextFunction(validated)
@@ -85,7 +86,7 @@ export const updateTextFunctionAction = async (
 export const deleteTextFunctionAction = async (formData: FormData) => {
   const data = new SafeFormData(formData)
   const id = data.getString('id')
-  const searchParams = data.getString('searchParams')
+  const searchParams = headers().get('x-search-params')
   await deleteTextFunction(id)
   redirect(`/ideas/text-functions?${searchParams}`)
 }

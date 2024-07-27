@@ -3,7 +3,6 @@
 import { TextField } from '@/components/TextField'
 import { TextArea } from '@/components/TextArea'
 import { Button } from '@/components/Button'
-import { useSearchParams } from 'next/navigation'
 import { TextFunctionDefinition } from '@/types'
 import { useActionState } from 'react'
 import {
@@ -17,7 +16,6 @@ export const TextFunctionEditForm = ({
   datum: TextFunctionDefinition
 }) => {
   const [state, dispatch] = useActionState(updateTextFunctionAction, undefined)
-  const searchParams = useSearchParams()
   return (
     <>
       <form action={dispatch}>
@@ -38,11 +36,6 @@ export const TextFunctionEditForm = ({
             error={state?.errors?.definition}
           />
         </div>
-        <input
-          type="hidden"
-          name="searchParams"
-          value={searchParams.toString()}
-        />
         <div className="flex justify-end">
           <Button type="submit" icon="DocumentCheck">
             保存する
@@ -51,11 +44,6 @@ export const TextFunctionEditForm = ({
       </form>
       <form action={deleteTextFunctionAction}>
         <input type="hidden" name="id" value={datum.id} />
-        <input
-          type="hidden"
-          name="searchParams"
-          value={searchParams.toString()}
-        />
         <Button type="submit" icon="Trash" color="tertiary">
           削除する
         </Button>

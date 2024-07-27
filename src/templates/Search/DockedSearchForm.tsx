@@ -48,16 +48,6 @@ export const DockedSearchForm = ({
   return (
     <form ref={formRef} action={handleSubmit} className={`${className}`}>
       <input type="hidden" name="pathname" value={pathname} />
-      <SearchBar
-        type="button"
-        className={`${isViewOpen ? 'hidden' : ''}`}
-        searchedValue={value}
-        placeholder={placeholder}
-        layer={layer}
-        onClearClick={handleClearClick}
-        onClick={handleSearchBarClick}
-        onBackClick={handleBackClick}
-      />
       <DockedSearchView
         ref={inputRef}
         placeholder={placeholder}

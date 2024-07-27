@@ -17,8 +17,9 @@ export const TextFunctionsPanel = ({ defaultData }: Props) => {
   const { search, searchedValue } = useKeywordSearch()
   const data = useTextFunctions({ searchParams, fallbackData: defaultData })
   return (
-    <div className="mt-2">
+    <div className="mt-0 md:mt-2">
       <SearchForm
+        className="mb-4"
         placeholder="AI関数定義"
         name="keyword"
         searchedValue={searchedValue}

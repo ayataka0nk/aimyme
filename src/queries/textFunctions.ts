@@ -14,7 +14,8 @@ export const useTextFunctions = ({
     ([url, searchParams]) =>
       fetcher<TextFunctionDefinition[]>([url, searchParams]),
     {
-      fallbackData: fallbackData
+      fallbackData: fallbackData,
+      keepPreviousData: true
     }
   )
   return data

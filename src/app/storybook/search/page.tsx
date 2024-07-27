@@ -8,13 +8,13 @@ export default function SearchPage() {
     <div>
       <h1>Search</h1>
       <div>
-        <DockedSearchForm
+        {/* <DockedSearchForm
           name="keyword"
           historyKey="sample"
           layer="surface-container-highest"
           searchedValue="foo"
           action={actionSample}
-        />
+        /> */}
       </div>
     </div>
   )

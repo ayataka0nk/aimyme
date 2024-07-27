@@ -3,6 +3,7 @@ import { DockedSearchForm } from './DockedSearchForm'
 import { ScreenSearchForm } from './ScreenSearchForm'
 import { SearchFormProps } from './type'
 import { useSearchForm } from './useSearchForm'
+import { SearchBar } from '@/components/Search/SearchBar'
 
 export const SearchForm = ({
   name = 'keyword',
@@ -60,49 +61,59 @@ export const SearchForm = ({
     setValue('')
   }
   const breakpoint = useBreakpoint()
-  if (breakpoint === 'sm') {
-    return (
-      <ScreenSearchForm
-        className={`mb-4 z-[1] sticky top-2 md:hidden ${className}`}
-        inputRef={inputRef}
-        submitButtonRef={submitButtonRef}
-        formRef={formRef}
-        isViewOpen={isViewOpen}
-        value={value}
-        history={history}
-        layer={layer}
+  return (
+    <div className={`${className}`}>
+      <SearchBar
+        type="button"
+        className={`${isViewOpen ? 'hidden' : ''}`}
+        searchedValue={value}
         placeholder={placeholder}
-        name={name}
-        handleChange={handleChange}
-        handleClearClick={handleClearClick}
-        handleBackClick={handleBackClick}
-        handleSearchBarClick={handleSearchBarClick}
-        handleViewClearClick={handleViewClearClick}
-        handleValueClick={handleValueClick}
-        handleSubmit={handleSubmit}
-      />
-    )
-  } else {
-    return (
-      <DockedSearchForm
-        className={`mb-4 z-[1] sticky top-2 hidden md:block ${className}`}
-        inputRef={inputRef}
-        submitButtonRef={submitButtonRef}
-        formRef={formRef}
-        isViewOpen={isViewOpen}
-        value={value}
-        history={history}
         layer={layer}
-        placeholder={placeholder}
-        name={name}
-        handleChange={handleChange}
-        handleClearClick={handleClearClick}
-        handleBackClick={handleBackClick}
-        handleSearchBarClick={handleSearchBarClick}
-        handleViewClearClick={handleViewClearClick}
-        handleValueClick={handleValueClick}
-        handleSubmit={handleSubmit}
+        onClearClick={handleClearClick}
+        onClick={handleSearchBarClick}
+        onBackClick={handleBackClick}
       />
-    )
-  }
+      {breakpoint === 'sm' ? (
+        <ScreenSearchForm
+          className={`z-[1] sticky top-2 md:hidden ${className}`}
+          inputRef={inputRef}
+          submitButtonRef={submitButtonRef}
+          formRef={formRef}
+          isViewOpen={isViewOpen}
+          value={value}
+          history={history}
+          layer={layer}
+          placeholder={placeholder}
+          name={name}
+          handleChange={handleChange}
+          handleClearClick={handleClearClick}
+          handleBackClick={handleBackClick}
+          handleSearchBarClick={handleSearchBarClick}
+          handleViewClearClick={handleViewClearClick}
+          handleValueClick={handleValueClick}
+          handleSubmit={handleSubmit}
+        />
+      ) : (
+        <DockedSearchForm
+          className={`z-[1] sticky top-2 hidden md:block ${className}`}
+          inputRef={inputRef}
+          submitButtonRef={submitButtonRef}
+          formRef={formRef}
+          isViewOpen={isViewOpen}
+          value={value}
+          history={history}
+          layer={layer}
+          placeholder={placeholder}
+          name={name}
+          handleChange={handleChange}
+          handleClearClick={handleClearClick}
+          handleBackClick={handleBackClick}
+          handleSearchBarClick={handleSearchBarClick}
+          handleViewClearClick={handleViewClearClick}
+          handleValueClick={handleValueClick}
+          handleSubmit={handleSubmit}
+        />
+      )}
+    </div>
+  )
 }

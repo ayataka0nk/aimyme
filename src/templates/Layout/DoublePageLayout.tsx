@@ -1,5 +1,5 @@
 import { NavigationProps } from '@/components/type'
-import { NavigationFAB, Navigations, NavigationTopAppBar } from '../Navigation'
+import { NavigationFAB, Navigations } from '../Navigation'
 
 export const DoublePaneLayout = ({
   children,

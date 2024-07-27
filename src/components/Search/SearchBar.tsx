@@ -2,6 +2,7 @@ import { forwardRef } from 'react'
 import { IconButton } from '@/components/IconButton'
 import { getLayerStyle, Layer } from '@/components/LayerColor'
 import { Icon } from '@/components/Icon'
+import { useNavigationContext } from '@/templates/Navigation'
 
 type Props = React.ComponentPropsWithoutRef<'button'> & {
   searchedValue: string
@@ -24,6 +25,7 @@ export const SearchBar = forwardRef<HTMLButtonElement, Props>(
     },
     ref
   ) => {
+    const { setIsDrawerModalOpen } = useNavigationContext()
     const containerStyle = getContainerStyle()
     const layerStyle = getLayerStyle(layer)
     const textStyle = searchedValue
@@ -39,12 +41,21 @@ export const SearchBar = forwardRef<HTMLButtonElement, Props>(
         >
           {displayValue}
         </button>
+
         <Icon
-          className={`absolute left-4 h-6 w-6 text-on-surface-variant ${
-            searchedValue ? 'hidden' : ''
+          className={`absolute hidden left-4 h-6 w-6 text-on-surface-variant ${
+            searchedValue ? 'hidden' : 'md:block'
           }`}
           type="MagnifyingGlass"
           variant="outline"
+        />
+        <IconButton
+          className={`absolute md:hidden left-1 h-6 w-6 text-on-surface-variant ${
+            searchedValue ? 'hidden' : ''
+          }`}
+          icon="Bars3"
+          noRipple
+          onClick={() => setIsDrawerModalOpen(true)}
         />
         <IconButton
           className={`absolute w-6 h-6 left-1 z-10 text-on-surface ${
@@ -57,7 +68,9 @@ export const SearchBar = forwardRef<HTMLButtonElement, Props>(
           onClick={onBackClick}
         />
         <IconButton
-          className="absolute w-6 h-6 right-1 z-10 text-on-surface"
+          className={`absolute w-6 h-6 right-1 z-10 text-on-surface ${
+            searchedValue ? '' : 'hidden'
+          }`}
           icon="XMark"
           variant="standard"
           type="button"

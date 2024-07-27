@@ -3,7 +3,7 @@ import { UserDoublePaneLayout } from '@/app/layout/UserDoublePaneLayout'
 import { NavigationActionType } from '@/components/type'
 import { useSearchParams } from 'next/navigation'
 
-export default async function TextFunctionsLayout({
+export default function TextFunctionsLayout({
   list,
   children
 }: Readonly<{ list: React.ReactNode; children: React.ReactNode }>) {

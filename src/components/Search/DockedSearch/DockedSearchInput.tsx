@@ -17,7 +17,7 @@ export const DockedSearchInput = forwardRef<HTMLInputElement, Props>(
         >
           <input
             ref={ref}
-            className={`peer cursor-pointer w-full h-full pl-14 pr-14 outline-none rounded-t-4xl ${layerStyle}`}
+            className={`peer cursor-pointer w-full h-full placeholder-on-surface-variant pl-14 pr-14 outline-none rounded-t-4xl ${layerStyle}`}
             {...props}
           />
           <IconButton
