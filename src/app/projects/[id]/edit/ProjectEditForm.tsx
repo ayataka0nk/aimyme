@@ -20,7 +20,7 @@ export const ProjectEditForm = ({ project }: Props) => {
   const { DialogComponent, showModal, closeModal } = useDialog()
   const ac = (_currentState: unknown, formData: FormData) => {
     const result = updateProjectAction(_currentState, formData)
-    // mutate('/api/projects')
+    mutate('/api/projects')
     return result
   }
   const [errors, dispatch] = useActionState(ac, undefined)

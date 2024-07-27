@@ -1,13 +1,3 @@
-import { getProjects } from '@/services/projects'
-import { ProjectsPanel } from './ProjectsPanel'
+import ProjectsPage from './page'
 
-export default async function Fallback({
-  searchParams
-}: {
-  searchParams: {
-    keyword?: string
-  }
-}) {
-  const projects = await getProjects({ keyword: searchParams.keyword })
-  return <ProjectsPanel projects={projects} />
-}
+export default ProjectsPage

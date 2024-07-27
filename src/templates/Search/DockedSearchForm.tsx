@@ -1,5 +1,5 @@
 'use client'
-import { Layer } from '@/components/LayerColor'
+import { getLayerStyle, Layer } from '@/components/LayerColor'
 import { SearchView } from '@/components/Search/DockedSearch/SearchView'
 import { HistoryItem } from '@/components/Search/HistoryItem'
 import { InputValueItem } from '@/components/Search/InputValueItem'
@@ -73,6 +73,7 @@ export const DockedSearchForm = ({
     setValue('')
   }
   const pathname = usePathname()
+  const layerStyle = getLayerStyle(layer)
 
   return (
     <form ref={formRef} {...props} action={handleSubmit}>

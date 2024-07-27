@@ -6,9 +6,8 @@ import { useProjectNavigationAction } from '../navigationAction'
 import { DockedSearchForm } from '@/templates/Search/DockedSearchForm'
 import { Card } from '@/components/Card'
 import Link from 'next/link'
-import useSWR from 'swr'
-import { fetcher } from '@/queries/fetcher'
 import { SafeFormData } from '@/lib/SafeFormData'
+import { useProjects } from '@/queries/projects'
 
 type Props = {
   projects: ProjectSummary[]
@@ -20,14 +19,7 @@ export const ProjectsPanel = ({ projects: defaultProjects }: Props) => {
   const handleMenuClick = () => {
     setIsDrawerModalOpen(true)
   }
-  const { data: projects } = useSWR(
-    '/api/projects?' +
-      new URLSearchParams({ keyword: searchedValue }).toString(),
-    fetcher<ProjectSummary[]>,
-    {
-      fallbackData: defaultProjects
-    }
-  )
+  const projects = useProjects({ searchParams, fallbackData: defaultProjects })
 
   const router = useRouter()
   const navigationAction = useProjectNavigationAction()

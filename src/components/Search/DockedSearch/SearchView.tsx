@@ -14,7 +14,9 @@ export const SearchView = forwardRef<HTMLInputElement, Props>(
     return (
       <div className={`${className}`}>
         <DockedSearchInput ref={ref} layer={layer} {...props} />
-        <div className={`rounded-b-4xl overflow-hidden ${layerStyle}`}>
+        <div
+          className={`overflow-hidden absolute w-full rounded-b-4xl  ${layerStyle}`}
+        >
           {children}
         </div>
       </div>

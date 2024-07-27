@@ -19,7 +19,10 @@ export const getProjects = async ({
     }
   }
   const projects = await prisma.project.findMany({
-    where: where
+    where: where,
+    orderBy: {
+      id: 'desc'
+    }
   })
   return projects
 }

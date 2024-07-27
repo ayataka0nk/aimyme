@@ -1,9 +1,10 @@
 import { Fetcher } from 'swr'
 
-export async function fetcher<T>(
-  input: RequestInfo,
-  init?: RequestInit
-): Promise<T> {
-  const res = await fetch(input, init)
+export async function fetcher<T>([path, searchParams]: [
+  string,
+  URLSearchParams
+]): Promise<T> {
+  const url = path + '?' + searchParams.toString()
+  const res = await fetch(url)
   return await res.json()
 }
