@@ -11,7 +11,7 @@ export const NavigationFAB = ({
 }) => {
   return (
     <div
-      className={`inline-block fixed bottom-4 right-4 md:hidden z-30 ${className}`}
+      className={`inline-block fixed bottom-4 right-4 md:hidden z-[1] ${className}`}
     >
       {action.href && (
         <Button

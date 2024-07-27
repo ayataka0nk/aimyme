@@ -8,6 +8,7 @@ import { Card } from '@/components/Card'
 import Link from 'next/link'
 import { SafeFormData } from '@/lib/SafeFormData'
 import { useProjects } from '@/queries/projects'
+import { SearchForm } from '@/templates/Search/SearchForm'
 
 type Props = {
   projects: ProjectSummary[]
@@ -36,14 +37,13 @@ export const ProjectsPanel = ({ projects: defaultProjects }: Props) => {
   return (
     <div className="mt-2">
       <NavigationFAB className="z-[1] md:hidden" action={navigationAction} />
-      <DockedSearchForm
-        className="mb-4 z-[1] sticky top-2"
+      <SearchForm
         placeholder="search text"
         name="keyword"
         searchedValue={searchedValue}
         historyKey="projects"
         action={action}
-      ></DockedSearchForm>
+      ></SearchForm>
 
       <div className="grid gap-2">
         {projects.map((project) => (

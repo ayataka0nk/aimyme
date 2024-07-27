@@ -1,12 +1,12 @@
 'use client'
-import { DockedSearchView } from '@/components/Search/DockedSearch/DockedSearchView'
 import { HistoryItem } from '@/components/Search/HistoryItem'
 import { InputValueItem } from '@/components/Search/InputValueItem'
 import { SearchBar } from '@/components/Search/SearchBar'
 import { usePathname } from 'next/navigation'
+import { ScreenSearchView } from '@/components/Search/ScreenSearch/ScreenSearchView'
 import { Layer } from '@/components/LayerColor'
 
-export const DockedSearchForm = ({
+export const ScreenSearchForm = ({
   inputRef,
   submitButtonRef,
   formRef,
@@ -58,7 +58,7 @@ export const DockedSearchForm = ({
         onClick={handleSearchBarClick}
         onBackClick={handleBackClick}
       />
-      <DockedSearchView
+      <ScreenSearchView
         ref={inputRef}
         placeholder={placeholder}
         name={name}
@@ -84,7 +84,7 @@ export const DockedSearchForm = ({
             }}
           />
         ))}
-      </DockedSearchView>
+      </ScreenSearchView>
       <button ref={submitButtonRef} className="hidden" type="submit"></button>
     </form>
   )

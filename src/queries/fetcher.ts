@@ -1,5 +1,3 @@
-import { Fetcher } from 'swr'
-
 export async function fetcher<T>([path, searchParams]: [
   string,
   URLSearchParams

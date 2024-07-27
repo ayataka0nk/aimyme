@@ -8,7 +8,7 @@ type Props = ComponentPropsWithoutRef<'input'> & {
   onBackClick: () => void
 }
 
-export const SearchView = forwardRef<HTMLInputElement, Props>(
+export const DockedSearchView = forwardRef<HTMLInputElement, Props>(
   ({ className, layer, children, ...props }, ref) => {
     const layerStyle = getLayerStyle(layer)
     return (
@@ -24,4 +24,4 @@ export const SearchView = forwardRef<HTMLInputElement, Props>(
   }
 )
 
-SearchView.displayName = 'SearchView'
+DockedSearchView.displayName = 'DockedSearchView'
