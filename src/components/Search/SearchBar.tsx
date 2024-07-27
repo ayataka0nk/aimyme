@@ -5,9 +5,8 @@ import { Icon } from '@/components/Icon'
 
 type Props = React.ComponentPropsWithoutRef<'button'> & {
   searchedValue: string
-
   layer: Layer
-  placeholder: string
+  placeholder?: string
   onClearClick: () => void
   onBackClick: () => void
 }

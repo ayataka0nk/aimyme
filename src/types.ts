@@ -17,3 +17,9 @@ export type ProjectDetail = {
   description: string
   ownerUserId: string
 }
+
+export type TextFunctionDefinition = {
+  id: string
+  name: string
+  definition: string
+}

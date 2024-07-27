@@ -14,11 +14,14 @@ datasource db {
 }
 
 model User {
-  id       String    @id @default(uuid())
-  email    String    @unique @map("email")
-  name     String    @map("name")
-  password String    @map("password")
-  projects Project[]
+  id       String @id @default(uuid())
+  email    String @unique @map("email")
+  name     String @map("name")
+  password String @map("password")
+
+  textFunctionDefinitions TextFunctionDefinition[]
+  textFunctionLogs       TextFunctionLog[]
+  projects               Project[]
 
   @@map("users")
 }
@@ -31,4 +34,26 @@ model Project {
   ownerUser   User   @relation(fields: [ownerUserId], references: [id])
 
   @@map("projects")
+}
+
+model TextFunctionLog {
+  id         String   @id @default(uuid())
+  userId     String   @map("user_id")
+  definition String   @map("definition")
+  input      String   @map("input")
+  output     String   @map("output")
+  createdAt  DateTime @default(now()) @map("created_at")
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@map("text_function_logs")
+}
+
+model TextFunctionDefinition {
+  id         String @id @default(uuid())
+  name       String @map("name")
+  definition String @map("definition")
+  userId     String @map("user_id")
+  user       User   @relation(fields: [userId], references: [id])
+
+  @@map("text_function_definitions")
 }

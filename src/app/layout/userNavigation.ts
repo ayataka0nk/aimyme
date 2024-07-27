@@ -7,24 +7,13 @@ export const userNavigationItems: NavigationItemType[] = [
     href: '/dashboard'
   },
   {
-    icon: 'BuildingOffice2',
-    labelText: '取引先',
-    href: '/clients'
-  },
-  {
     icon: 'ClipboardDocumentList',
     labelText: 'プロジェクト',
     href: '/projects'
   },
   {
-    icon: 'ClipboardDocumentList',
-    labelText: '稼働記録',
-    href: '/work-entries'
-  },
-  {
-    icon: 'ArrowLeftStartOnRectangle',
-    labelText: 'ログアウト',
-    onClick: () => {},
-    active: false
+    icon: 'LightBulb',
+    labelText: 'アイデア',
+    href: '/ideas'
   }
 ]

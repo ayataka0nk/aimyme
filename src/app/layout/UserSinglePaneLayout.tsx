@@ -1,22 +1,20 @@
-import { DoublePaneLayout } from '@/templates/Layout/DoublePageLayout'
-import { Logo } from '../Logo'
 import { NavigationActionType } from '@/components/type'
+import { SinglePaneLayout } from '@/templates/Layout'
+import { Logo } from '../Logo'
 import { userNavigationItems } from './userNavigation'
 
 type Props = {
   action?: NavigationActionType
-  list: React.ReactNode
   children: React.ReactNode
 }
-export const UserDoublePaneLayout = ({ action, list, children }: Props) => {
+export const UserSignlePaneLayout = ({ action, children }: Props) => {
   return (
-    <DoublePaneLayout
+    <SinglePaneLayout
       logo={<Logo />}
       items={userNavigationItems}
       action={action}
-      list={list}
     >
       {children}
-    </DoublePaneLayout>
+    </SinglePaneLayout>
   )
 }

@@ -5,6 +5,8 @@ const prisma = new PrismaClient()
 const saltRounds = 10
 
 const main = async () => {
+  await prisma.textFunctionDefinition.deleteMany()
+  await prisma.project.deleteMany()
   await prisma.user.deleteMany()
 
   const user = await prisma.user.create({
@@ -27,6 +29,21 @@ const main = async () => {
       name: 'プロジェクト2',
       description: 'プロジェクト2の説明',
       ownerUserId: user.id
+    }
+  })
+
+  await prisma.textFunctionDefinition.create({
+    data: {
+      name: '関数1',
+      definition: '関数1の定義',
+      userId: user.id
+    }
+  })
+  await prisma.textFunctionDefinition.create({
+    data: {
+      name: '関数2',
+      definition: '関数2の定義',
+      userId: user.id
     }
   })
 }
