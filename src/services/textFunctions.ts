@@ -4,6 +4,7 @@ import { prisma } from '@/prisma'
 import { TextFunctionDefinition } from '@/types'
 import { notFound } from 'next/navigation'
 import OpenAI from 'openai'
+import { getCurrentUserOrFail } from './authentications'
 
 export const getTextFunctions = async ({
   keyword
@@ -113,6 +114,7 @@ class VelocityTextFunction implements TextFunction {
     this.client = new OpenAI()
   }
   async execute(definition: string, input: string): Promise<string> {
+    const user = await getCurrentUserOrFail()
     const chatCompletion = await this.client.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
@@ -124,6 +126,14 @@ class VelocityTextFunction implements TextFunction {
     if (reply === null) {
       throw new Error('Failed to generate text')
     }
+    await prisma.textFunctionLog.create({
+      data: {
+        userId: user.id,
+        definition: definition,
+        input: input,
+        output: reply
+      }
+    })
     return reply
   }
 }

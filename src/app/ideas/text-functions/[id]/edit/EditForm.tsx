@@ -22,7 +22,7 @@ export const TextFunctionEditForm = ({
   const [definition, setDefinition] = useState(datum.definition)
   return (
     <>
-      <Card layer="surface">
+      <Card layer="surface" className="mb-4">
         <form action={dispatch}>
           <input type="hidden" name="id" value={datum.id} />
           <div>
