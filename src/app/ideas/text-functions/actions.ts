@@ -3,6 +3,7 @@
 import { SafeFormData } from '@/lib/SafeFormData'
 import { SchemaValidationErrorBag } from '@/lib/SchemaValidationErrorBag'
 import {
+  createTextFunction,
   deleteTextFunction,
   storeTextFunction,
   updateTextFunction
@@ -89,4 +90,21 @@ export const deleteTextFunctionAction = async (formData: FormData) => {
   const searchParams = headers().get('x-search-params')
   await deleteTextFunction(id)
   redirect(`/ideas/text-functions?${searchParams}`)
+}
+
+export type TextFunctionPreviewFormState = {
+  definition: string
+  input: string
+  output: string
+}
+export const executeTextFunctionAction = async (
+  _currentState: unknown,
+  formData: FormData
+) => {
+  const data = new SafeFormData(formData)
+  const definition = data.getString('definition')
+  const input = data.getString('input')
+  const textFunction = createTextFunction()
+  const output = await textFunction.execute(definition, input)
+  return { input, output }
 }

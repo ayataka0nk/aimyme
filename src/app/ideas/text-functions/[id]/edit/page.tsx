@@ -8,9 +8,5 @@ export default async function TextFunctionEditPage({
   params: { id: string }
 }) {
   const datum = await getTextFunction(params.id)
-  return (
-    <Card layer="surface">
-      <TextFunctionEditForm datum={datum} />
-    </Card>
-  )
+  return <TextFunctionEditForm datum={datum} />
 }

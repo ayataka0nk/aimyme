@@ -3,6 +3,7 @@ import { getSessionOrFail } from './sessions'
 import { prisma } from '@/prisma'
 import { TextFunctionDefinition } from '@/types'
 import { notFound } from 'next/navigation'
+import OpenAI from 'openai'
 
 export const getTextFunctions = async ({
   keyword
@@ -99,4 +100,34 @@ export const deleteTextFunction = async (id: string) => {
       userId: userId
     }
   })
+}
+
+export interface TextFunction {
+  execute(definition: string, input: string): Promise<string>
+}
+type TextFunctionType = 'velocity'
+
+class VelocityTextFunction implements TextFunction {
+  private client: OpenAI
+  constructor() {
+    this.client = new OpenAI()
+  }
+  async execute(definition: string, input: string): Promise<string> {
+    const chatCompletion = await this.client.chat.completions.create({
+      model: 'gpt-4o-mini',
+      messages: [
+        { role: 'system', content: definition },
+        { role: 'user', content: input }
+      ]
+    })
+    const reply = chatCompletion.choices[0].message.content
+    if (reply === null) {
+      throw new Error('Failed to generate text')
+    }
+    return reply
+  }
+}
+
+export const createTextFunction = (type?: TextFunctionType): TextFunction => {
+  return new VelocityTextFunction()
 }
