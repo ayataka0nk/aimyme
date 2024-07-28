@@ -12,7 +12,7 @@ COPY tsconfig.json ./
 COPY tsconfig.script.json ./
 
 RUN ls -la
-RUN npm ci
+RUN npm ci --force
 RUN npm run build
 
 FROM node:20-bookworm-slim
