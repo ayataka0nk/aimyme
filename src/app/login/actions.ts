@@ -39,7 +39,13 @@ export const loginFormAction = async (
       }
     } else {
       return {
-        message: 'Authentication Failed'
+        values: {
+          email: email,
+          password: password
+        },
+        errors: {
+          global: 'Invalid email or password'
+        }
       }
     }
   }
