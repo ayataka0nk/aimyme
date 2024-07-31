@@ -1,4 +1,4 @@
-FROM node:20-bookworm-slim AS build
+FROM node:20-bookworm-slim AS dependencies
 WORKDIR /app
 COPY public ./public
 COPY prisma ./prisma
@@ -13,9 +13,16 @@ COPY tsconfig.script.json ./
 
 RUN ls -la
 RUN npm ci --force
+
+FROM dependencies AS migration
+WORKDIR /app
+CMD ["npm", "run", "migrate"]
+
+FROM dependencies AS build
+WORKDIR /app
 RUN npm run build
 
-FROM node:20-bookworm-slim
+FROM node:20-bookworm-slim as production
 RUN apt-get update -y && apt-get install -y openssl
 RUN apt-get upgrade openssl -y
 WORKDIR /app
