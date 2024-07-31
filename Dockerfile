@@ -15,6 +15,8 @@ RUN ls -la
 RUN npm ci --force
 
 FROM dependencies AS migration
+RUN apt-get update -y && apt-get install -y openssl
+RUN apt-get upgrade openssl -y
 WORKDIR /app
 CMD ["npm", "run", "migrate"]
 
