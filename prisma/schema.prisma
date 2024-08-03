@@ -15,26 +15,56 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid())
-  email    String @unique @map("email")
-  name     String @map("name")
-  password String @map("password")
-
-  textFunctionDefinitions TextFunctionDefinition[]
-  textFunctionLogs        TextFunctionLog[]
-  projects                Project[]
+  id                        String                     @id @default(uuid())
+  email                     String                     @unique @map("email")
+  name                      String                     @map("name")
+  password                  String                     @map("password")
+  textFunctionDefinitions   TextFunctionDefinition[]
+  textFunctionLogs          TextFunctionLog[]
+  projectMembers            ProjectMember[]
+  monthlyProjectAllocations MonthlyProjectAllocation[]
 
   @@map("users")
 }
 
 model Project {
-  id          String @id @default(uuid())
-  name        String @map("name")
-  description String @map("description")
-  ownerUserId String @map("owner_user_id")
-  ownerUser   User   @relation(fields: [ownerUserId], references: [id])
+  id                        String                     @id @default(uuid())
+  name                      String                     @map("name")
+  description               String                     @map("description")
+  isArchived                Boolean                    @map("is_archived") @default(false)
+  projectMembers            ProjectMember[]
+  monthlyProjectAllocations MonthlyProjectAllocation[]
 
   @@map("projects")
+}
+
+enum ProjectUserRole {
+  ADMIN
+  MEMBER
+}
+
+model ProjectMember {
+  userId    String          @map("user_id")
+  projectId String          @map("project_id")
+  user      User            @relation(fields: [userId], references: [id])
+  project   Project         @relation(fields: [projectId], references: [id])
+  role      ProjectUserRole @map("role")
+
+  @@id([userId, projectId])
+  @@map("project_members")
+}
+
+model MonthlyProjectAllocation {
+  id             String   @id @default(uuid())
+  projectId      String   @map("project_id")
+  userId         String   @map("user_id")
+  yearMonth      DateTime @map("year_month")
+  allocatedHours Int      @map("allocated_hours")
+  project        Project  @relation(fields: [projectId], references: [id])
+  user           User     @relation(fields: [userId], references: [id])
+
+  @@unique([projectId, userId, yearMonth])
+  @@map("monthly_project_allocations")
 }
 
 model TextFunctionLog {

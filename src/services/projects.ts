@@ -5,18 +5,27 @@ import { Prisma } from '@prisma/client'
 import { ProjectSummary } from '@/types'
 
 export const getProjects = async ({
-  keyword
+  keyword,
+  includeArchived = false
 }: {
   keyword?: string
+  includeArchived?: boolean
 }): Promise<ProjectSummary[]> => {
   const { userId } = await getSessionOrFail()
   const where: Prisma.ProjectWhereInput = {
-    ownerUserId: userId
+    projectMembers: {
+      some: {
+        userId: userId
+      }
+    }
   }
   if (keyword) {
     where.name = {
       contains: keyword
     }
+  }
+  if (!includeArchived) {
+    where.isArchived = false
   }
   const projects = await prisma.project.findMany({
     where: where,
@@ -32,8 +41,12 @@ export const getProject = async (id: string) => {
 
   const project = await prisma.project.findFirst({
     where: {
-      id,
-      ownerUserId: userId
+      id: id,
+      projectMembers: {
+        some: {
+          userId: userId
+        }
+      }
     }
   })
   if (project === null) {
@@ -54,8 +67,14 @@ export const storeProject = async (
   const project = await prisma.project.create({
     data: {
       name: params.name,
-      description: params.description,
-      ownerUserId: userId
+      description: params.description
+    }
+  })
+  await prisma.projectMember.create({
+    data: {
+      userId: userId,
+      projectId: project.id,
+      role: 'ADMIN'
     }
   })
   return project.id
@@ -72,22 +91,35 @@ export const updateProject = async (
   const { userId } = await getSessionOrFail()
   await prisma.project.update({
     where: {
-      id: params.projectId
+      id: params.projectId,
+      projectMembers: {
+        some: {
+          userId: userId,
+          role: 'ADMIN'
+        }
+      }
     },
     data: {
       name: params.name,
-      description: params.description,
-      ownerUserId: userId
+      description: params.description
     }
   })
 }
 
-export const deleteProject = async (projectId: string): Promise<void> => {
+export const archiveProject = async (projectId: string): Promise<void> => {
   const { userId } = await getSessionOrFail()
-  await prisma.project.delete({
+  await prisma.project.update({
     where: {
       id: projectId,
-      ownerUserId: userId
+      projectMembers: {
+        some: {
+          userId: userId,
+          role: 'ADMIN'
+        }
+      }
+    },
+    data: {
+      isArchived: true
     }
   })
 }

@@ -1,8 +1,6 @@
 'use client'
-import { NavigationFAB } from '@/templates/Navigation'
 import { ProjectSummary } from '@/types'
 import { useSearchParams } from 'next/navigation'
-import { useProjectNavigationAction } from '../navigationAction'
 import { Card } from '@/components/Card'
 import Link from 'next/link'
 import { useProjects } from '@/queries/projects'
@@ -19,8 +17,9 @@ export const ProjectsPanel = ({ projects: defaultProjects }: Props) => {
   const projects = useProjects({ searchParams, fallbackData: defaultProjects })
 
   return (
-    <div className="mt-2">
+    <div className="mt-0 md:mt-2">
       <SearchForm
+        className="mb-4"
         placeholder="search text"
         name="keyword"
         searchedValue={searchedValue}

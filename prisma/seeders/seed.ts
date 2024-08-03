@@ -6,6 +6,7 @@ const saltRounds = 10
 
 const main = async () => {
   await prisma.textFunctionDefinition.deleteMany()
+  await prisma.textFunctionLog.deleteMany()
   await prisma.project.deleteMany()
   await prisma.user.deleteMany()
 
@@ -16,19 +17,41 @@ const main = async () => {
       password: await bcrypt.hash('passw0rD', saltRounds)
     }
   })
-  await prisma.project.create({
+  const project1 = await prisma.project.create({
     data: {
       name: 'プロジェクト1',
-      description: 'プロジェクト1の説明',
-      ownerUserId: user.id
+      description: 'プロジェクト1の説明'
     }
   })
 
-  await prisma.project.create({
+  await prisma.projectMember.create({
+    data: {
+      project: {
+        connect: { id: project1.id }
+      },
+      user: {
+        connect: { id: user.id }
+      },
+      role: 'ADMIN'
+    }
+  })
+
+  const project2 = await prisma.project.create({
     data: {
       name: 'プロジェクト2',
-      description: 'プロジェクト2の説明',
-      ownerUserId: user.id
+      description: 'プロジェクト2の説明'
+    }
+  })
+
+  await prisma.projectMember.create({
+    data: {
+      project: {
+        connect: { id: project2.id }
+      },
+      user: {
+        connect: { id: user.id }
+      },
+      role: 'ADMIN'
     }
   })
 

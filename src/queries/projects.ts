@@ -13,7 +13,8 @@ export const useProjects = ({
     ['/api/projects', searchParams],
     ([url, searchParams]) => fetcher<ProjectSummary[]>([url, searchParams]),
     {
-      fallbackData: fallbackData
+      fallbackData: fallbackData,
+      keepPreviousData: true
     }
   )
   return data
