@@ -21,3 +21,11 @@ export type TextFunctionDefinition = {
   name: string
   definition: string
 }
+
+export type ServerURLSearchParams = {
+  [key: string]: string | string[] | undefined
+}
+
+export type ServerFlatURLSearchParams = {
+  [key: string]: string
+}

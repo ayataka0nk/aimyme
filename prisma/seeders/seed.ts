@@ -7,6 +7,8 @@ const saltRounds = 10
 const main = async () => {
   await prisma.textFunctionDefinition.deleteMany()
   await prisma.textFunctionLog.deleteMany()
+  await prisma.monthlyProjectAllocation.deleteMany()
+  await prisma.projectMember.deleteMany()
   await prisma.project.deleteMany()
   await prisma.user.deleteMany()
 
@@ -67,6 +69,23 @@ const main = async () => {
       name: '関数2',
       definition: '関数2の定義',
       userId: user.id
+    }
+  })
+
+  await prisma.monthlyProjectAllocation.create({
+    data: {
+      projectId: project1.id,
+      userId: user.id,
+      yearMonth: '2024-08',
+      allocatedHours: 64
+    }
+  })
+  await prisma.monthlyProjectAllocation.create({
+    data: {
+      projectId: project2.id,
+      userId: user.id,
+      yearMonth: '2024-08',
+      allocatedHours: 32
     }
   })
 }

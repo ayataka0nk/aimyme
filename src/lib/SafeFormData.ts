@@ -20,10 +20,9 @@ export class SafeFormData {
     if (value === null) {
       return undefined
     }
-
     const number = Number(value)
-    if (!isNaN(number)) {
-      throw new Error('Invalid form data')
+    if (isNaN(number)) {
+      return undefined
     }
 
     return number

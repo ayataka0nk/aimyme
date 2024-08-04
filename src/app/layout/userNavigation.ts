@@ -12,6 +12,11 @@ export const userNavigationItems: NavigationItemType[] = [
     href: '/projects'
   },
   {
+    icon: 'Clock',
+    labelText: '時間管理',
+    href: '/chronos'
+  },
+  {
     icon: 'LightBulb',
     labelText: 'アイデア',
     href: '/ideas'

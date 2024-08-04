@@ -58,7 +58,7 @@ model MonthlyProjectAllocation {
   id             String   @id @default(uuid())
   projectId      String   @map("project_id")
   userId         String   @map("user_id")
-  yearMonth      DateTime @map("year_month")
+  yearMonth      String @map("year_month")
   allocatedHours Int      @map("allocated_hours")
   project        Project  @relation(fields: [projectId], references: [id])
   user           User     @relation(fields: [userId], references: [id])
