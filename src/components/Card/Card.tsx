@@ -59,7 +59,6 @@ const getElevatedStyle = ({
   let styles: string[] = [
     'text-left',
     'relative',
-    'overflow-hidden',
     'text-on-surface',
     'rounded-xl',
     'p-4',
@@ -116,7 +115,6 @@ const getFilledStyle = ({
   let styles: string[] = [
     'text-left',
     'relative',
-    'overflow-hidden',
     'text-on-surface',
     'rounded-xl',
     'p-4',
@@ -172,7 +170,6 @@ const getOutlinedStyle = ({
   let styles: string[] = [
     'text-left',
     'relative',
-    'overflow-hidden',
     'text-on-surface',
     'rounded-xl',
     'p-4',
