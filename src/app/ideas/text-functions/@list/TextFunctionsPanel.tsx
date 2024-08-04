@@ -17,6 +17,7 @@ export const TextFunctionsPanel = ({ defaultData }: Props) => {
   const { search, searchedValue } = useKeywordSearch()
   const data = useQuery<TextFunctionDefinition[]>({
     url: '/api/text-functions',
+    searchParams,
     defaultData: defaultData
   })
   return (

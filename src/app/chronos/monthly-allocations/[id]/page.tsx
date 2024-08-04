@@ -24,7 +24,8 @@ export default async function Page({
         }/edit?${urlSearchParams.toString()}`}
       />
       <p>{datum.project.name}</p>
-      <p>{datum.yearMonth}</p>
+      <p>{datum.year}</p>
+      <p>{datum.month}</p>
       <p>{datum.allocatedHours}時間</p>
     </Card>
   )

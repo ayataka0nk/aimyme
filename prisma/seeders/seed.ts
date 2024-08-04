@@ -3,15 +3,16 @@ import bcrypt from 'bcrypt'
 
 const prisma = new PrismaClient()
 const saltRounds = 10
-
-const main = async () => {
+const deleteAll = async () => {
   await prisma.textFunctionDefinition.deleteMany()
   await prisma.textFunctionLog.deleteMany()
   await prisma.monthlyProjectAllocation.deleteMany()
   await prisma.projectMember.deleteMany()
   await prisma.project.deleteMany()
   await prisma.user.deleteMany()
+}
 
+const insertData = async () => {
   const user = await prisma.user.create({
     data: {
       email: 'user@example.com',
@@ -76,7 +77,8 @@ const main = async () => {
     data: {
       projectId: project1.id,
       userId: user.id,
-      yearMonth: '2024-08',
+      year: 2024,
+      month: 8,
       allocatedHours: 64
     }
   })
@@ -84,10 +86,15 @@ const main = async () => {
     data: {
       projectId: project2.id,
       userId: user.id,
-      yearMonth: '2024-08',
+      year: 2024,
+      month: 8,
       allocatedHours: 32
     }
   })
+}
+const main = async () => {
+  await deleteAll()
+  await insertData()
 }
 
 main()

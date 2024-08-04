@@ -31,6 +31,7 @@ export const ComboBox = ({
   className,
   options,
   value,
+  defaultValue,
   onChange,
   ...props
 }: ComboBoxProps) => {
@@ -44,7 +45,7 @@ export const ComboBox = ({
   })
   const [isOpen, setIsOpen] = useState(false)
 
-  const [localValue, setLocalValue] = useState(props.defaultValue ?? '')
+  const [localValue, setLocalValue] = useState(defaultValue ?? '')
 
   const displayValue = useMemo(() => {
     const selectedOption = options.find(

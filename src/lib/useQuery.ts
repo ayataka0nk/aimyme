@@ -1,15 +1,15 @@
 import useSWR from 'swr'
 import { fetcherWithSearchParams } from './fetcher'
-import { useSearchParams } from 'next/navigation'
 
 export const useQuery = <T>({
   url,
+  searchParams,
   defaultData
 }: {
   url: string
+  searchParams: URLSearchParams
   defaultData: T
 }) => {
-  const searchParams = useSearchParams()
   const { data } = useSWR(
     [url, searchParams],
     ([url, searchParams]) => fetcherWithSearchParams<T>([url, searchParams]),

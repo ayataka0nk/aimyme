@@ -6,8 +6,9 @@ import { MonthlyProjectAllocation } from '@/models/monthlyProjectAllocation'
 import { useActionState } from 'react'
 import { updateMonthlyProjectAllocationAction } from '../../actions'
 import { Button } from '@/components/Button'
-import { ComboBox, ComboBoxOption } from '@/components/ComboBox/ComboBox'
+import { ComboBoxOption } from '@/components/ComboBox/ComboBox'
 import { ProjectComboBox } from '@/app/components/ComboBox/ProjectComboBox'
+import { formatYearMonth } from '@/lib/utils'
 
 export const MonthlyProjectAllocationEditForm = ({
   datum
@@ -37,7 +38,10 @@ export const MonthlyProjectAllocationEditForm = ({
             id="yearMonth"
             name="yearMonth"
             label="年月"
-            defaultValue={state?.values.yearMonth ?? datum.yearMonth}
+            defaultValue={
+              state?.values.yearMonth ??
+              formatYearMonth(datum.year, datum.month)
+            }
             error={state?.errors?.yearMonth}
           />
         </div>

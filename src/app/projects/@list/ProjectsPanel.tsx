@@ -15,6 +15,7 @@ export const ProjectsPanel = ({ projects: defaultProjects }: Props) => {
   const { search, searchedValue } = useKeywordSearch()
   const projects = useQuery<ProjectSummary[]>({
     url: '/api/projects',
+    searchParams,
     defaultData: defaultProjects
   })
 

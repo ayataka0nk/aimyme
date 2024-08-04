@@ -11,13 +11,17 @@ export const toMonthlyProjectAllocation = (
 ): MonthlyProjectAllocation => {
   return {
     id: datum.id,
-    yearMonth: datum.yearMonth,
+    year: datum.year,
+    month: datum.month,
     allocatedHours: datum.allocatedHours,
     project: toProjectSummary(datum.project)
   }
 }
 
-export type MonthlyProjectAllocationQueryParams = {}
+export type MonthlyProjectAllocationQueryParams = {
+  year?: number
+  month?: number
+}
 
 export const getMonthlyProjectAllocations = async (
   query?: MonthlyProjectAllocationQueryParams
@@ -31,6 +35,12 @@ export const getMonthlyProjectAllocations = async (
         }
       }
     }
+  }
+  if (query?.year) {
+    where.year = query.year
+  }
+  if (query?.month) {
+    where.month = query.month
   }
   const data = await prisma.monthlyProjectAllocation.findMany({
     where: where,
@@ -72,7 +82,8 @@ export const getMonthlyProjectAllocation = async (
 }
 
 export type StoreMonthlyProjectAllocationParams = {
-  yearMonth: string
+  year: number
+  month: number
   allocatedHours: number
   projectId: string
 }
@@ -84,7 +95,8 @@ export const storeMonthlyProjectAllocation = async (
   const datum = await prisma.monthlyProjectAllocation.create({
     data: {
       userId: userId,
-      yearMonth: params.yearMonth,
+      year: params.year,
+      month: params.month,
       allocatedHours: params.allocatedHours,
       projectId: params.projectId
     }
@@ -113,7 +125,8 @@ export const updateMonthlyProjectAllocation = async (
       }
     },
     data: {
-      yearMonth: params.yearMonth,
+      year: params.year,
+      month: params.month,
       allocatedHours: params.allocatedHours,
       projectId: params.projectId
     }

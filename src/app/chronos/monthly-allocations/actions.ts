@@ -1,17 +1,18 @@
 'use server'
 import { SafeFormData } from '@/lib/SafeFormData'
 import { SchemaValidationErrorBag } from '@/lib/SchemaValidationErrorBag'
+import { parseYearMonth } from '@/lib/utils'
 import {
   storeMonthlyProjectAllocation,
   updateMonthlyProjectAllocation
 } from '@/stores/monthlyProjectAllocations'
 import { headers } from 'next/headers'
-import { redirect } from 'next/navigation'
+import { redirect, RedirectType } from 'next/navigation'
 import { z } from 'zod'
 
 const StoreSchema = z.object({
   projectId: z.string().min(1),
-  allocatedHours: z.coerce.number(),
+  allocatedHours: z.coerce.number().nonnegative(),
   yearMonth: z.string().regex(/^\d{4}-\d{2}$/)
 })
 
@@ -30,8 +31,13 @@ export const storeMonthlyProjectAllocationAction = async (
       yearMonth,
       allocatedHours
     })
-    const id = await storeMonthlyProjectAllocation(validated)
-    redirect(`/chronos/monthly-allocations/${id}`)
+    const { year, month } = parseYearMonth(validated.yearMonth)
+    const id = await storeMonthlyProjectAllocation({
+      ...validated,
+      year,
+      month
+    })
+    redirect(`/chronos/monthly-allocations/${id}`, RedirectType.replace)
   } catch (error) {
     if (error instanceof z.ZodError) {
       const errors = new SchemaValidationErrorBag(error)
@@ -56,7 +62,7 @@ export const storeMonthlyProjectAllocationAction = async (
 const UpdateSchema = z.object({
   id: z.string().min(1),
   projectId: z.string().min(1),
-  allocatedHours: z.coerce.number(),
+  allocatedHours: z.coerce.number().nonnegative(),
   yearMonth: z.string().regex(/^\d{4}-\d{2}$/)
 })
 
@@ -70,6 +76,7 @@ export const updateMonthlyProjectAllocationAction = async (
   const yearMonth = data.getString('yearMonth')
   const allocatedHours = data.getString('allocatedHours')
   const searchParams = headers().get('x-search-params')
+
   // TODO DB整合チェック
   try {
     const validated = UpdateSchema.parse({
@@ -78,7 +85,12 @@ export const updateMonthlyProjectAllocationAction = async (
       yearMonth,
       allocatedHours
     })
-    await updateMonthlyProjectAllocation(validated)
+    const { year, month } = parseYearMonth(validated.yearMonth)
+    await updateMonthlyProjectAllocation({
+      ...validated,
+      year,
+      month
+    })
     redirect(`/chronos/monthly-allocations/${id}?${searchParams}`)
   } catch (error) {
     if (error instanceof z.ZodError) {

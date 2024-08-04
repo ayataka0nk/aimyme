@@ -3,8 +3,9 @@ export async function fetcherWithSearchParams<T>([path, searchParams]: [
   URLSearchParams | undefined
 ]): Promise<T> {
   let url = path
+
   if (typeof searchParams !== 'undefined') {
-    url += '?' + searchParams.toString
+    url += '?' + searchParams.toString()
   }
   const res = await fetch(url)
   return await res.json()
