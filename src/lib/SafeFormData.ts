@@ -24,7 +24,6 @@ export class SafeFormData {
     if (isNaN(number)) {
       return undefined
     }
-
     return number
   }
 

@@ -6,6 +6,7 @@ import { useActionState } from 'react'
 
 import { Button } from '@/components/Button'
 import { storeMonthlyProjectAllocationAction } from '../actions'
+import { ProjectComboBox } from '@/app/components/ComboBox/ProjectComboBox'
 
 export const MonthlyProjectAllocationCreateForm = () => {
   const [state, dispatch] = useActionState(
@@ -25,7 +26,7 @@ export const MonthlyProjectAllocationCreateForm = () => {
           />
         </div>
         <div>
-          <TextField
+          <ProjectComboBox
             id="projectId"
             name="projectId"
             label="プロジェクト選択"

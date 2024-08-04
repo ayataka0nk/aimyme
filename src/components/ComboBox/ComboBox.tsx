@@ -8,7 +8,7 @@ export type ComboBoxOption = {
   label: string
 }
 
-type Props = {
+export type ComboBoxProps = {
   options: ComboBoxOption[]
   value?: string
   onChange?: (value: string) => void
@@ -33,7 +33,7 @@ export const ComboBox = ({
   value,
   onChange,
   ...props
-}: Props) => {
+}: ComboBoxProps) => {
   const isControlled =
     typeof onChange !== 'undefined' && typeof value !== 'undefined'
 
@@ -44,14 +44,14 @@ export const ComboBox = ({
   })
   const [isOpen, setIsOpen] = useState(false)
 
-  const [localValue, setLocalValue] = useState('')
+  const [localValue, setLocalValue] = useState(props.defaultValue ?? '')
 
   const displayValue = useMemo(() => {
     const selectedOption = options.find(
       (option) => option.value === localValue
     )?.label
     return selectedOption ?? ''
-  }, [localValue])
+  }, [localValue, options])
 
   useEffect(() => {
     // 親のvalueが変更されたらローカルの値も変更する
@@ -73,6 +73,8 @@ export const ComboBox = ({
     setIsOpen(false)
   }
 
+  //TODO コンボボックスの表示名から検索する機能を追加する
+
   return (
     <div className={`relative ${className}`}>
       <input type="hidden" name={props.name} value={localValue} readOnly />
@@ -85,7 +87,7 @@ export const ComboBox = ({
       {isOpen && (
         <div
           ref={ref}
-          className="absolute z-[1] top-[58px] shadow-3dp w-full bg-surface"
+          className="absolute z-[1] top-[58px] max-h-[200px] shadow-3dp w-full bg-surface rounded-md overflow-y-auto"
         >
           {options.map((option) => (
             <button

@@ -11,7 +11,7 @@ import { z } from 'zod'
 
 const StoreSchema = z.object({
   projectId: z.string().min(1),
-  allocatedHours: z.number().min(1),
+  allocatedHours: z.coerce.number(),
   yearMonth: z.string().regex(/^\d{4}-\d{2}$/)
 })
 
@@ -20,9 +20,10 @@ export const storeMonthlyProjectAllocationAction = async (
   formData: FormData
 ) => {
   const data = new SafeFormData(formData)
-  const projectId = data.getStringOptional('projectId')
-  const yearMonth = data.getStringOptional('yearMonth')
-  const allocatedHours = data.getNumberOptional('allocatedHours')
+  const projectId = data.getString('projectId')
+  const yearMonth = data.getString('yearMonth')
+  const allocatedHours = data.getString('allocatedHours')
+  // TODO DB整合チェック
   try {
     const validated = StoreSchema.parse({
       projectId,
@@ -55,7 +56,7 @@ export const storeMonthlyProjectAllocationAction = async (
 const UpdateSchema = z.object({
   id: z.string().min(1),
   projectId: z.string().min(1),
-  allocatedHours: z.number().min(1),
+  allocatedHours: z.coerce.number(),
   yearMonth: z.string().regex(/^\d{4}-\d{2}$/)
 })
 
@@ -65,10 +66,11 @@ export const updateMonthlyProjectAllocationAction = async (
 ) => {
   const data = new SafeFormData(formData)
   const id = data.getString('id')
-  const projectId = data.getStringOptional('projectId')
-  const yearMonth = data.getStringOptional('yearMonth')
-  const allocatedHours = data.getNumberOptional('allocatedHours')
+  const projectId = data.getString('projectId')
+  const yearMonth = data.getString('yearMonth')
+  const allocatedHours = data.getString('allocatedHours')
   const searchParams = headers().get('x-search-params')
+  // TODO DB整合チェック
   try {
     const validated = UpdateSchema.parse({
       id,

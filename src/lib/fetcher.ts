@@ -1,8 +1,16 @@
-export async function fetcher<T>([path, searchParams]: [
+export async function fetcherWithSearchParams<T>([path, searchParams]: [
   string,
-  URLSearchParams
+  URLSearchParams | undefined
 ]): Promise<T> {
-  const url = path + '?' + searchParams.toString()
+  let url = path
+  if (typeof searchParams !== 'undefined') {
+    url += '?' + searchParams.toString
+  }
   const res = await fetch(url)
+  return await res.json()
+}
+
+export async function fetcher<T>(path: string): Promise<T> {
+  const res = await fetch(path)
   return await res.json()
 }
