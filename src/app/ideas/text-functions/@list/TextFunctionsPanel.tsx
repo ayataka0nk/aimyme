@@ -2,7 +2,7 @@
 
 import { Card } from '@/components/Card'
 import { useKeywordSearch } from '@/components/hooks/useKeywordSearch'
-import { useTextFunctions } from '@/queries/textFunctions'
+import { useQuery } from '@/lib/useQuery'
 import { SearchForm } from '@/templates/Search/SearchForm'
 import { TextFunctionDefinition } from '@/types'
 import Link from 'next/link'
@@ -15,7 +15,10 @@ type Props = {
 export const TextFunctionsPanel = ({ defaultData }: Props) => {
   const searchParams = useSearchParams()
   const { search, searchedValue } = useKeywordSearch()
-  const data = useTextFunctions({ searchParams, fallbackData: defaultData })
+  const data = useQuery<TextFunctionDefinition[]>({
+    url: '/api/text-functions',
+    defaultData: defaultData
+  })
   return (
     <div className="mt-0 md:mt-2">
       <SearchForm

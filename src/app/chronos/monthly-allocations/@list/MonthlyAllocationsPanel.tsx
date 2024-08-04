@@ -1,8 +1,8 @@
 'use client'
 
 import { Card } from '@/components/Card'
+import { useQuery } from '@/lib/useQuery'
 import { MonthlyProjectAllocation } from '@/models/monthlyProjectAllocation'
-import { useQuery } from '@/queries/useQuery'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 
@@ -14,7 +14,7 @@ export default function MonthlyAllocationsPanel({
   const searchParams = useSearchParams()
   const data = useQuery<MonthlyProjectAllocation[]>({
     url: '/chronos/monthly-allocations/api',
-    fallbackData: defaultData
+    defaultData: defaultData
   })
 
   return (

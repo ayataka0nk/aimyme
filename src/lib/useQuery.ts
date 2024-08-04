@@ -4,17 +4,17 @@ import { useSearchParams } from 'next/navigation'
 
 export const useQuery = <T>({
   url,
-  fallbackData
+  defaultData
 }: {
   url: string
-  fallbackData: T
+  defaultData: T
 }) => {
   const searchParams = useSearchParams()
   const { data } = useSWR(
     [url, searchParams],
     ([url, searchParams]) => fetcher<T>([url, searchParams]),
     {
-      fallbackData: fallbackData,
+      fallbackData: defaultData,
       keepPreviousData: true
     }
   )

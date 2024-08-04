@@ -3,9 +3,9 @@ import { ProjectSummary } from '@/types'
 import { useSearchParams } from 'next/navigation'
 import { Card } from '@/components/Card'
 import Link from 'next/link'
-import { useProjects } from '@/queries/projects'
 import { SearchForm } from '@/templates/Search/SearchForm'
 import { useKeywordSearch } from '@/components/hooks/useKeywordSearch'
+import { useQuery } from '@/lib/useQuery'
 
 type Props = {
   projects: ProjectSummary[]
@@ -13,8 +13,10 @@ type Props = {
 export const ProjectsPanel = ({ projects: defaultProjects }: Props) => {
   const searchParams = useSearchParams()
   const { search, searchedValue } = useKeywordSearch()
-
-  const projects = useProjects({ searchParams, fallbackData: defaultProjects })
+  const projects = useQuery<ProjectSummary[]>({
+    url: '/api/projects',
+    defaultData: defaultProjects
+  })
 
   return (
     <div className="mt-0 md:mt-2">
