@@ -30,7 +30,7 @@ const calculateTimeString = (hour: string, minute: string, period: Period) => {
   const hourString = hourNumber.toString().padStart(2, '0')
   const minuteString = minuteNumber.toString().padStart(2, '0')
 
-  return `${hourString}:${minuteString}`
+  return `${hourString}:${minuteString}:00`
 }
 
 /**

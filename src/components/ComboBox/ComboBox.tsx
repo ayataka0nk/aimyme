@@ -59,7 +59,7 @@ export const ComboBox = ({
     if (isControlled) {
       setLocalValue(value)
     }
-  }, [value])
+  }, [value, isControlled])
 
   const handleFieldClick = () => {
     setIsOpen((prev) => !prev)

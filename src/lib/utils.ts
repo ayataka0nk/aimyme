@@ -1,6 +1,30 @@
-export const parseYearMonth = (
-  yearMonth: string
-): { year: number; month: number } => {
+import { format, parse, parseISO } from 'date-fns'
+import { toZonedTime } from 'date-fns-tz'
+
+export type YearMonth = {
+  year: number
+  month: number
+}
+
+export type ParsedYearMonth<T> = T extends string
+  ? {
+      year: number
+      month: number
+    }
+  : {
+      year?: number
+      month?: number
+    }
+
+export const parseYearMonth = <T extends string | undefined>(
+  yearMonth: T
+): ParsedYearMonth<T> => {
+  if (typeof yearMonth === 'undefined') {
+    return {
+      year: undefined,
+      month: undefined
+    } as ParsedYearMonth<T>
+  }
   const [year, month] = yearMonth.split('-').map(Number)
   return { year, month }
 }
@@ -30,4 +54,50 @@ export const getCurrentYearMonth = () => {
   const year = now.getFullYear()
   const month = now.getMonth() + 1
   return { year, month }
+}
+
+type ParsedDate<T> = T extends string ? Date : Date | undefined
+export const parseDate = <T extends string | undefined>(
+  date: T
+): ParsedDate<T> => {
+  if (typeof date === 'undefined') {
+    return undefined as ParsedDate<T>
+  }
+  return parseISO(date) as ParsedDate<T>
+}
+
+type MaybeUndefined<T> = T | undefined
+
+type ParseUtcDateTimeResult<D, T> = D extends string
+  ? T extends string
+    ? Date
+    : undefined
+  : undefined
+
+export const parseUtcDateTime = <
+  D extends MaybeUndefined<string>,
+  T extends MaybeUndefined<string>
+>(
+  date: D,
+  time: T,
+  timeZone: string
+): ParseUtcDateTimeResult<D, T> => {
+  if (typeof date === 'undefined' || typeof time === 'undefined') {
+    return undefined as ParseUtcDateTimeResult<D, T>
+  }
+
+  const parsedDate = parse(`${date} ${time}`, 'yyyy-MM-dd HH:mm:ss', new Date())
+  const utcDateTime = toZonedTime(parsedDate, timeZone)
+
+  return utcDateTime as ParseUtcDateTimeResult<D, T>
+}
+
+export const getNowDate = () => {
+  const now = new Date()
+  return format(now, 'yyyy-MM-dd')
+}
+
+export const getNowYearMonth = () => {
+  const now = new Date()
+  return format(now, 'yyyy-MM')
 }
