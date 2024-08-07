@@ -2,6 +2,7 @@
 
 import { SafeFormData } from '@/lib/SafeFormData'
 import { SchemaValidationErrorBag } from '@/lib/SchemaValidationErrorBag'
+import { FormErrors } from '@/lib/types'
 import { parseUtcDateTime, parseYearMonth } from '@/lib/utils'
 import {
   nonnegativeNumber,
@@ -11,34 +12,33 @@ import {
   requiredString,
   requiredYearMonth
 } from '@/lib/zodUtils'
-import { storeTimeEntry, StoreTimeEntryParams } from '@/stores/timeEntries'
+import {
+  storeTimeEntry,
+  TimeEntryParams,
+  updateTimeEntry
+} from '@/stores/timeEntries'
+import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
-export type StoreFormState = {
-  values: {
-    projectId: string
-    description: string
-    yearMonth: string
-    startDate: string
-    startTime: string
-    endDate: string
-    endTime: string
-    durationHours: string
-  }
-  errors?: {
-    projectId: string | undefined
-    description: string | undefined
-    yearMonth: string | undefined
-    startDate: string | undefined
-    startTime: string | undefined
-    endDate: string | undefined
-    endTime: string | undefined
-    durationHours: string | undefined
-  }
+export type TimeEntryFormValues = {
+  projectId: string
+  description: string
+  yearMonth: string
+  startDate: string
+  startTime: string
+  endDate: string
+  endTime: string
+  durationHours: string
 }
 
-const StoreSchema = z.object({
+export type StoreFormState = {
+  values: TimeEntryFormValues
+  errors?: FormErrors<TimeEntryFormValues>
+}
+
+const UpsertSchema = z.object({
+  id: optionalString(),
   projectId: requiredString(),
   description: optionalString(),
   yearMonth: requiredYearMonth(),
@@ -49,11 +49,13 @@ const StoreSchema = z.object({
   durationHours: nonnegativeNumber()
 })
 
-export const storeTimeEntryAction = async (
+export const upsertTimeEntryAction = async (
   _currentState: StoreFormState,
   formData: FormData
 ) => {
+  const searchParams = headers().get('x-search-params')
   const data = new SafeFormData(formData)
+  const id = data.getStringOptional('id')
   const projectId = data.getString('projectId')
   const description = data.getString('description')
   const yearMonth = data.getString('yearMonth')
@@ -65,7 +67,8 @@ export const storeTimeEntryAction = async (
 
   // TODO DB整合チェック
   try {
-    const validated = StoreSchema.parse({
+    const validated = UpsertSchema.parse({
+      id,
       projectId,
       description,
       yearMonth,
@@ -77,25 +80,23 @@ export const storeTimeEntryAction = async (
     })
 
     let { year, month } = parseYearMonth(validated.yearMonth)
-    const params: StoreTimeEntryParams = {
+    const params: TimeEntryParams = {
       projectId: validated.projectId,
       description: validated.description,
       year: year,
       month: month,
-      startTime: parseUtcDateTime(
-        validated.startDate,
-        validated.startTime,
-        'Asia/Tokyo'
-      ),
-      endTime: parseUtcDateTime(
-        validated.endDate,
-        validated.endTime,
-        'Asia/Tokyo'
-      ),
+      startTime: parseUtcDateTime(validated.startDate, validated.startTime),
+      endTime: parseUtcDateTime(validated.endDate, validated.endTime),
       durationHours: validated.durationHours
     }
-    const id = await storeTimeEntry(params)
-    redirect(`/chronos/time-entries/${id}`)
+
+    if (typeof validated.id === 'undefined') {
+      const createdId = await storeTimeEntry(params)
+      redirect(`/chronos/time-entries/${createdId}?${searchParams}`)
+    } else {
+      await updateTimeEntry(validated.id, params)
+      redirect(`/chronos/time-entries/${validated.id}?${searchParams}`)
+    }
   } catch (error) {
     if (error instanceof z.ZodError) {
       const errors = new SchemaValidationErrorBag(error)

@@ -6,30 +6,30 @@ import { useActionState } from 'react'
 
 import { Button } from '@/components/Button'
 import { ProjectComboBox } from '@/app/components/ComboBox/ProjectComboBox'
-import { StoreFormState, storeTimeEntryAction } from '../actions'
+import {
+  StoreFormState,
+  upsertTimeEntryAction,
+  TimeEntryFormValues
+} from './actions'
 import { TimeField } from '@/components/TimePicker'
 import { DateFieldModal } from '@/components/DatePicker'
-import { getNowDate, getNowYearMonth } from '@/lib/utils'
 
-export const MonthlyProjectAllocationCreateForm = () => {
+type Props = {
+  id?: string
+  defaultValues: TimeEntryFormValues
+}
+
+export const TimeEntryForm = ({ id, defaultValues }: Props) => {
   const [state, dispatch] = useActionState<StoreFormState, FormData>(
-    storeTimeEntryAction,
+    upsertTimeEntryAction,
     {
-      values: {
-        projectId: '',
-        description: '',
-        yearMonth: getNowYearMonth(),
-        startDate: getNowDate(),
-        startTime: '',
-        endDate: getNowDate(),
-        endTime: '',
-        durationHours: ''
-      }
+      values: defaultValues
     }
   )
   return (
     <Card layer="surface">
       <form action={dispatch}>
+        {id && <input type="hidden" name="id" value={id} />}
         <div>
           <TextField
             id="yearMonth"

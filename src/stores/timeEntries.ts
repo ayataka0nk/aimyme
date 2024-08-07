@@ -107,7 +107,7 @@ export const getTimeEntry = async (id: string): Promise<TimeEntryDetail> => {
   return toTimeEntryDetail(data)
 }
 
-export type StoreTimeEntryParams = {
+export type TimeEntryParams = {
   description?: string
   year: number
   month: number
@@ -118,8 +118,8 @@ export type StoreTimeEntryParams = {
 }
 
 export const storeTimeEntry = async (
-  params: StoreTimeEntryParams
-): Promise<TimeEntryDetail> => {
+  params: TimeEntryParams
+): Promise<string> => {
   const { userId } = await getSessionOrFail()
   const data = await prisma.timeEntry.create({
     data: {
@@ -145,27 +145,17 @@ export const storeTimeEntry = async (
     }
   })
 
-  return toTimeEntryDetail(data)
-}
-
-export type UpdateTimeEntryParams = {
-  id: string
-  description: string
-  year: number
-  month: number
-  startTime?: Date
-  endTime?: Date
-  durationHours: number
-  projectId: string
+  return data.id
 }
 
 export const updateTimeEntry = async (
-  params: UpdateTimeEntryParams
+  id: string,
+  params: TimeEntryParams
 ): Promise<TimeEntryDetail> => {
   const { userId } = await getSessionOrFail()
   const data = await prisma.timeEntry.update({
     where: {
-      id: params.id,
+      id: id,
       userId: userId
     },
     data: {

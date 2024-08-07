@@ -80,7 +80,7 @@ export const parseUtcDateTime = <
 >(
   date: D,
   time: T,
-  timeZone: string
+  timeZone: string = 'Asia/Tokyo'
 ): ParseUtcDateTimeResult<D, T> => {
   if (typeof date === 'undefined' || typeof time === 'undefined') {
     return undefined as ParseUtcDateTimeResult<D, T>
@@ -100,4 +100,24 @@ export const getNowDate = () => {
 export const getNowYearMonth = () => {
   const now = new Date()
   return format(now, 'yyyy-MM')
+}
+
+export const formatToZonedDate = (
+  date?: Date,
+  timeZone: string = 'Asia/Tokyo'
+) => {
+  if (typeof date === 'undefined') {
+    return ''
+  }
+  return format(toZonedTime(date, timeZone), 'yyyy-MM-dd')
+}
+
+export const formatToZonedTime = (
+  date?: Date,
+  timeZone: string = 'Asia/Tokyo'
+) => {
+  if (typeof date === 'undefined') {
+    return ''
+  }
+  return format(toZonedTime(date, timeZone), 'HH:mm:ss')
 }

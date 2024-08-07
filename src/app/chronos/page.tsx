@@ -7,7 +7,7 @@ export default async function ChronosPage() {
     <UserSignlePaneLayout>
       <div>
         <h1>Chronos Page</h1>
-        <div>
+        <div className="flex gap-4">
           <Button
             variant="extended-fab"
             icon="Calendar"
@@ -15,6 +15,14 @@ export default async function ChronosPage() {
             href="/chronos/monthly-allocations"
           >
             月ごとの予定工数
+          </Button>
+          <Button
+            variant="extended-fab"
+            icon="Clock"
+            component={Link}
+            href="/chronos/time-entries"
+          >
+            日ごとの作業記録
           </Button>
         </div>
       </div>
