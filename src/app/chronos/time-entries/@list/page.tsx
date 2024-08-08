@@ -1,7 +1,8 @@
 import { redirect, RedirectType } from 'next/navigation'
 import { getCurrentYearMonth } from '@/lib/utils'
-import ListPanel from './ListPanel'
 import { getTimeEntries } from '@/stores/timeEntries'
+import { PanelWithTopAppBar } from '@/app/layout/PanelWithTopAppBar'
+import ListPanel from './ListPanel'
 
 export default async function Page({
   searchParams
@@ -28,5 +29,9 @@ export default async function Page({
     year,
     month
   })
-  return <ListPanel defaultData={defaultData} />
+  return (
+    <PanelWithTopAppBar>
+      <ListPanel defaultData={defaultData} />
+    </PanelWithTopAppBar>
+  )
 }

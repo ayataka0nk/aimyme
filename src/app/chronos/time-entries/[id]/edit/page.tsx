@@ -6,6 +6,7 @@ import {
   formatToZonedTime,
   formatYearMonth
 } from '@/lib/utils'
+import { PanelWithTopAppBar } from '@/app/layout/PanelWithTopAppBar'
 
 export default async function Page({ params }: { params: { id: string } }) {
   const datum = await getTimeEntry(params.id)
@@ -19,5 +20,9 @@ export default async function Page({ params }: { params: { id: string } }) {
     endTime: formatToZonedTime(datum.endTime),
     durationHours: datum.durationHours.toString()
   }
-  return <TimeEntryForm id={params.id} defaultValues={defaultValues} />
+  return (
+    <PanelWithTopAppBar>
+      <TimeEntryForm id={params.id} defaultValues={defaultValues} />
+    </PanelWithTopAppBar>
+  )
 }

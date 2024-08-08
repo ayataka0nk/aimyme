@@ -1,6 +1,7 @@
 import { getNowDate, getNowYearMonth } from '@/lib/utils'
 import { TimeEntryForm } from '../TimeEntryForm'
 import { TimeEntryFormValues } from '../actions'
+import { PanelWithTopAppBar } from '@/app/layout/PanelWithTopAppBar'
 
 export default function Page() {
   const defaultValues: TimeEntryFormValues = {
@@ -14,5 +15,9 @@ export default function Page() {
     durationHours: ''
   }
 
-  return <TimeEntryForm defaultValues={defaultValues} />
+  return (
+    <PanelWithTopAppBar>
+      <TimeEntryForm defaultValues={defaultValues} />
+    </PanelWithTopAppBar>
+  )
 }
