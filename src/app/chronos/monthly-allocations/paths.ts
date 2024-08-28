@@ -1,5 +1,4 @@
 import { getCurrentYearMonth } from '@/lib/utils'
-import { headers } from 'next/headers'
 
 export const makeSearchParams = (
   searchParams?: string | URLSearchParams | null

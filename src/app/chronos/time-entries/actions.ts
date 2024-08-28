@@ -12,6 +12,7 @@ import {
   requiredYearMonth
 } from '@/lib/zodUtils'
 import {
+  deleteTimeEntry,
   storeTimeEntry,
   TimeEntryParams,
   updateTimeEntry
@@ -118,4 +119,11 @@ export const upsertTimeEntryAction = async (
       throw error
     }
   }
+}
+
+export const deleteTimeEntryAction = async (formData: FormData) => {
+  const searchParams = headers().get('x-search-params')
+  const id = formData.get('id') as string
+  await deleteTimeEntry(id)
+  redirect(`/chronos/time-entries?${searchParams}`)
 }
