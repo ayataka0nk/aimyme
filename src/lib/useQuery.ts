@@ -7,7 +7,7 @@ export const useQuery = <T>({
   defaultData
 }: {
   url: string
-  searchParams: URLSearchParams
+  searchParams?: URLSearchParams
   defaultData: T
 }) => {
   const { data } = useSWR(

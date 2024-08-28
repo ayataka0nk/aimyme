@@ -19,11 +19,13 @@ model User {
   email                     String                     @unique @map("email")
   name                      String                     @map("name")
   password                  String                     @map("password")
+  inProgressTimeEntryId     String?                    @map("in_progress_time_entry_id")
   textFunctionDefinitions   TextFunctionDefinition[]
   textFunctionLogs          TextFunctionLog[]
   projectMembers            ProjectMember[]
   monthlyProjectAllocations MonthlyProjectAllocation[]
   timeEntries               TimeEntry[]
+  inProgressTimeEntry       TimeEntry?                 @relation("InProgressTimeEntryUsers", fields: [inProgressTimeEntryId], references: [id])
 
   @@map("users")
 }
@@ -93,17 +95,18 @@ model TextFunctionDefinition {
 }
 
 model TimeEntry {
-  id            String    @id @default(uuid())
-  userId        String    @map("user_id")
-  projectId     String    @map("project_id")
-  year          Int       @map("year")
-  month         Int       @map("month")
-  startTime     DateTime? @map("start_time")
-  endTime       DateTime? @map("end_time")
-  durationHours Int       @map("duration_hours")
-  description   String?   @map("description")
-  user          User      @relation(fields: [userId], references: [id])
-  project       Project   @relation(fields: [projectId], references: [id])
+  id              String    @id @default(uuid())
+  userId          String    @map("user_id")
+  projectId       String    @map("project_id")
+  year            Int       @map("year")
+  month           Int       @map("month")
+  startTime       DateTime? @map("start_time")
+  endTime         DateTime? @map("end_time")
+  durationHours   Int       @map("duration_hours")
+  description     String?   @map("description")
+  user            User      @relation(fields: [userId], references: [id])
+  project         Project   @relation(fields: [projectId], references: [id])
+  inProgressUsers User[]    @relation("InProgressTimeEntryUsers")
 
   @@map("time_entries")
 }

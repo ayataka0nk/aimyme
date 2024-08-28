@@ -6,6 +6,7 @@ import { UnauthorizedError } from '@/lib/UnauthorizedError'
 import { redirect } from 'next/navigation'
 import { getSessionOrFail } from './sessions'
 import { User } from '@/types'
+import { toUser } from '@/stores/users'
 
 export const authenticate = async (
   email: string,
@@ -23,11 +24,7 @@ export const authenticate = async (
   if (!valid) {
     throw new Error('Invalid email or password')
   }
-  return {
-    id: user.id,
-    name: user.name,
-    email: user.email
-  }
+  return toUser(user)
 }
 
 export const getCurrentUser = async (): Promise<User | undefined> => {
@@ -35,17 +32,12 @@ export const getCurrentUser = async (): Promise<User | undefined> => {
   const user = await prisma.user.findUnique({
     where: {
       id: userId
-    },
-    select: {
-      id: true,
-      name: true,
-      email: true
     }
   })
   if (user === null) {
     return undefined
   }
-  return user
+  return toUser(user)
 }
 
 export const getCurrentUserOrFail = async (): Promise<User> => {

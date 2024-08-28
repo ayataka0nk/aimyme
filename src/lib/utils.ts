@@ -121,3 +121,13 @@ export const formatToZonedTime = (
   }
   return format(toZonedTime(date, timeZone), 'HH:mm:ss')
 }
+
+export const formatToZonedDateTime = (
+  date?: Date,
+  timeZone: string = 'Asia/Tokyo'
+) => {
+  if (typeof date === 'undefined') {
+    return ''
+  }
+  return format(toZonedTime(date, timeZone), 'yyyy-MM-dd HH:mm:ss')
+}

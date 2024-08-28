@@ -13,6 +13,7 @@ import {
 } from './actions'
 import { TimeField } from '@/components/TimePicker'
 import { DateFieldModal } from '@/components/DatePicker'
+import { TextArea } from '@/components/TextArea'
 
 type Props = {
   id?: string
@@ -49,7 +50,7 @@ export const TimeEntryForm = ({ id, defaultValues }: Props) => {
           />
         </div>
         <div>
-          <TextField
+          <TextArea
             id="description"
             name="description"
             label="補足"

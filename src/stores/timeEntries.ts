@@ -3,6 +3,7 @@ import { toProjectSummary } from './projects'
 import { TimeEntryDetail, TimeEntrySummary } from '@/models/timeEntry'
 import { getSessionOrFail } from '@/services/sessions'
 import { prisma } from '@/prisma'
+import { getCurrentUserOrFail } from '@/services/authentications'
 
 export const toTimeEntrySummary = (
   datum: p.TimeEntry & { project: p.Project }
@@ -177,4 +178,69 @@ export const updateTimeEntry = async (
   })
 
   return toTimeEntryDetail(data)
+}
+
+export const startTimer = async (projectId: string): Promise<string> => {
+  const user = await getCurrentUserOrFail()
+  const now = new Date()
+  const year = now.getFullYear()
+  const month = now.getMonth() + 1
+  const timeEntry = await prisma.$transaction(async (prisma) => {
+    const data = await prisma.timeEntry.create({
+      data: {
+        year: year,
+        month: month,
+        startTime: now,
+        durationHours: 0,
+        project: {
+          connect: {
+            id: projectId
+          }
+        },
+        user: {
+          connect: {
+            id: user.id
+          }
+        }
+      }
+    })
+
+    await prisma.user.update({
+      where: {
+        id: user.id
+      },
+      data: {
+        inProgressTimeEntryId: data.id
+      }
+    })
+    return data
+  })
+  return timeEntry.id
+}
+
+export const stopTimer = async (params: {
+  timeEntryId: string
+  description?: string
+}): Promise<void> => {
+  const user = await getCurrentUserOrFail()
+  const now = new Date()
+  await prisma.timeEntry.update({
+    where: {
+      id: params.timeEntryId,
+      userId: user.id
+    },
+    data: {
+      endTime: now,
+      description: params.description
+    }
+  })
+
+  await prisma.user.update({
+    where: {
+      id: user.id
+    },
+    data: {
+      inProgressTimeEntryId: null
+    }
+  })
 }
