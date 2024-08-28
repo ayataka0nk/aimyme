@@ -17,8 +17,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     startDate: formatToZonedDate(datum.startTime),
     startTime: formatToZonedTime(datum.startTime),
     endDate: formatToZonedDate(datum.endTime),
-    endTime: formatToZonedTime(datum.endTime),
-    durationHours: datum.durationHours.toString()
+    endTime: formatToZonedTime(datum.endTime)
   }
   return (
     <PanelWithTopAppBar>

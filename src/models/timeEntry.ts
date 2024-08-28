@@ -7,7 +7,7 @@ export type TimeEntrySummary = {
   month: number
   startTime?: Date
   endTime?: Date
-  durationHours: number
+  duration?: number
   project: ProjectSummary
   userId: string
 }
@@ -19,7 +19,7 @@ export type TimeEntryDetail = {
   month: number
   startTime?: Date
   endTime?: Date
-  durationHours: number
+  duration?: number
   project: ProjectSummary
   userId: string
 }

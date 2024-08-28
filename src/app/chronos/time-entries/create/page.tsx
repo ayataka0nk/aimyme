@@ -11,8 +11,7 @@ export default function Page() {
     startDate: getNowDate(),
     startTime: '',
     endDate: getNowDate(),
-    endTime: '',
-    durationHours: ''
+    endTime: ''
   }
 
   return (

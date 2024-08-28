@@ -13,9 +13,6 @@ export const InProgressTimeEntryCard = ({ timeEntryId }: Props) => {
     url: `/chronos/api/time-entries/${timeEntryId}`,
     defaultData: undefined
   })
-  //   if (typeof timeEntry === 'undefined') {
-  //     throw new Error('timeEntry is undefined')
-  //   }
   if (typeof timeEntry === 'undefined') {
     return <Card className="py-4">Loading...</Card>
   }

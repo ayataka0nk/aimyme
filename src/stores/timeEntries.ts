@@ -15,7 +15,10 @@ export const toTimeEntrySummary = (
     month: datum.month,
     startTime: datum.startTime ?? undefined,
     endTime: datum.endTime ?? undefined,
-    durationHours: datum.durationHours,
+    duration:
+      datum.startTime && datum.endTime
+        ? datum.endTime.getTime() - datum.startTime.getTime()
+        : undefined,
     project: toProjectSummary(datum.project),
     userId: datum.userId
   }
@@ -31,7 +34,10 @@ export const toTimeEntryDetail = (
     month: datum.month,
     startTime: datum.startTime ?? undefined,
     endTime: datum.endTime ?? undefined,
-    durationHours: datum.durationHours,
+    duration:
+      datum.startTime && datum.endTime
+        ? datum.endTime.getTime() - datum.startTime.getTime()
+        : undefined,
     project: toProjectSummary(datum.project),
     userId: datum.userId
   }
@@ -114,7 +120,6 @@ export type TimeEntryParams = {
   month: number
   startTime?: Date
   endTime?: Date
-  durationHours: number
   projectId: string
 }
 
@@ -129,7 +134,6 @@ export const storeTimeEntry = async (
       month: params.month,
       startTime: params.startTime,
       endTime: params.endTime,
-      durationHours: params.durationHours,
       project: {
         connect: {
           id: params.projectId
@@ -165,7 +169,6 @@ export const updateTimeEntry = async (
       month: params.month,
       startTime: params.startTime,
       endTime: params.endTime,
-      durationHours: params.durationHours,
       project: {
         connect: {
           id: params.projectId
@@ -191,7 +194,6 @@ export const startTimer = async (projectId: string): Promise<string> => {
         year: year,
         month: month,
         startTime: now,
-        durationHours: 0,
         project: {
           connect: {
             id: projectId

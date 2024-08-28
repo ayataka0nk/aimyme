@@ -7,9 +7,9 @@ import { useSearchParams } from '@/lib/useSearchParams'
 import {
   calcNextYearMonth,
   calcPrevYearMonth,
-  formatYearMonth
+  formatToZonedDateTimeWithoutSeconds,
+  millisecondsToHours
 } from '@/lib/utils'
-import { MonthlyProjectAllocation } from '@/models/monthlyProjectAllocation'
 import { TimeEntrySummary } from '@/models/timeEntry'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -70,17 +70,19 @@ export default function ListPanel({
         />
       </div>
       <div className="grid gap-2">
-        {data.map((allocation) => (
+        {data.map((datum) => (
           <Card
             layer="surface-container-high"
-            key={allocation.id}
+            key={datum.id}
             component={Link}
             href={`/chronos/time-entries/${
-              allocation.id
+              datum.id
             }?${searchParams.toString()}`}
           >
-            <p>{allocation.project.name}</p>
-            <p>{allocation.durationHours}時間</p>
+            <p>{datum.project.name}</p>
+            <p>{formatToZonedDateTimeWithoutSeconds(datum.startTime)}</p>
+            <p>{formatToZonedDateTimeWithoutSeconds(datum.endTime)}</p>
+            <p>{millisecondsToHours(datum.duration)}時間</p>
           </Card>
         ))}
       </div>

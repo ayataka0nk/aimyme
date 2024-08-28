@@ -93,16 +93,6 @@ export const TimeEntryForm = ({ id, defaultValues }: Props) => {
           </div>
         </div>
 
-        <div>
-          <TextField
-            id="durationHours"
-            name="durationHours"
-            label="時間"
-            defaultValue={state?.values.durationHours}
-            error={state?.errors?.durationHours}
-          />
-        </div>
-
         <div className="flex justify-end">
           <Button type="submit" icon="DocumentCheck">
             保存する

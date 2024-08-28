@@ -5,7 +5,6 @@ import { SchemaValidationErrorBag } from '@/lib/SchemaValidationErrorBag'
 import { FormErrors } from '@/lib/types'
 import { parseUtcDateTime, parseYearMonth } from '@/lib/utils'
 import {
-  nonnegativeNumber,
   optionalDate,
   optionalString,
   optionalTime,
@@ -29,7 +28,6 @@ export type TimeEntryFormValues = {
   startTime: string
   endDate: string
   endTime: string
-  durationHours: string
 }
 
 export type StoreFormState = {
@@ -45,8 +43,7 @@ const UpsertSchema = z.object({
   startDate: optionalDate(),
   startTime: optionalTime(),
   endDate: optionalDate(),
-  endTime: optionalTime(),
-  durationHours: nonnegativeNumber()
+  endTime: optionalTime()
 })
 
 export const upsertTimeEntryAction = async (
@@ -63,7 +60,6 @@ export const upsertTimeEntryAction = async (
   const startTime = data.getString('startTime')
   const endDate = data.getString('endDate')
   const endTime = data.getString('endTime')
-  const durationHours = data.getString('durationHours')
 
   // TODO DB整合チェック
   try {
@@ -75,8 +71,7 @@ export const upsertTimeEntryAction = async (
       startDate,
       startTime,
       endDate,
-      endTime,
-      durationHours
+      endTime
     })
 
     let { year, month } = parseYearMonth(validated.yearMonth)
@@ -86,8 +81,7 @@ export const upsertTimeEntryAction = async (
       year: year,
       month: month,
       startTime: parseUtcDateTime(validated.startDate, validated.startTime),
-      endTime: parseUtcDateTime(validated.endDate, validated.endTime),
-      durationHours: validated.durationHours
+      endTime: parseUtcDateTime(validated.endDate, validated.endTime)
     }
 
     if (typeof validated.id === 'undefined') {
@@ -108,8 +102,7 @@ export const upsertTimeEntryAction = async (
           startDate: startDate,
           startTime: startTime,
           endDate: endDate,
-          endTime: endTime,
-          durationHours: durationHours
+          endTime: endTime
         },
         errors: {
           projectId: errors.getFirstError('projectId'),
@@ -118,8 +111,7 @@ export const upsertTimeEntryAction = async (
           startDate: errors.getFirstError('startDate'),
           startTime: errors.getFirstError('startTime'),
           endDate: errors.getFirstError('endDate'),
-          endTime: errors.getFirstError('endTime'),
-          durationHours: errors.getFirstError('durationHours')
+          endTime: errors.getFirstError('endTime')
         }
       } as StoreFormState
     } else {
