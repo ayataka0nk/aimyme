@@ -1,3 +1,4 @@
+'use client'
 import { Button } from '@/components/Button'
 import { useDialog } from '@/components/Dialog'
 import { IconButton } from '@/components/IconButton'

@@ -3,6 +3,7 @@ import { SafeFormData } from '@/lib/SafeFormData'
 import { SchemaValidationErrorBag } from '@/lib/SchemaValidationErrorBag'
 import { parseYearMonth } from '@/lib/utils'
 import {
+  deleteMonthlyProjectAllocation,
   storeMonthlyProjectAllocation,
   updateMonthlyProjectAllocation
 } from '@/stores/monthlyProjectAllocations'
@@ -111,4 +112,13 @@ export const updateMonthlyProjectAllocationAction = async (
       throw error
     }
   }
+}
+
+export const deleteMonthlyProjectAllocationAction = async (
+  formState: FormData
+) => {
+  const id = formState.get('id') as string
+  const searchParams = headers().get('x-search-params')
+  await deleteMonthlyProjectAllocation(id)
+  redirect(`/chronos/monthly-allocations?${searchParams}`)
 }

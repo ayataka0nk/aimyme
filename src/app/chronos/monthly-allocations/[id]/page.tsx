@@ -1,8 +1,10 @@
 import { Card } from '@/components/Card'
 import { IconButton } from '@/components/IconButton'
 import { getMonthlyProjectAllocation } from '@/stores/monthlyProjectAllocations'
+import { DeleteConfirmIconButton } from '@/templates/Button/DeleteConfirmIconButton'
 import { ServerFlatURLSearchParams } from '@/types'
 import Link from 'next/link'
+import { deleteMonthlyProjectAllocationAction } from '../actions'
 
 export default async function Page({
   params,
@@ -27,6 +29,11 @@ export default async function Page({
       <p>{datum.year}</p>
       <p>{datum.month}</p>
       <p>{datum.allocatedHours}時間</p>
+
+      <form action={deleteMonthlyProjectAllocationAction}>
+        <input type="hidden" name="id" value={params.id} />
+        <DeleteConfirmIconButton />
+      </form>
     </Card>
   )
 }

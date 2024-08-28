@@ -4,11 +4,7 @@ import { Card } from '@/components/Card'
 import { IconButton } from '@/components/IconButton'
 import { useQuery } from '@/lib/useQuery'
 import { useSearchParams } from '@/lib/useSearchParams'
-import {
-  calcNextYearMonth,
-  calcPrevYearMonth,
-  formatYearMonth
-} from '@/lib/utils'
+import { calcNextYearMonth, calcPrevYearMonth } from '@/lib/utils'
 import { MonthlyProjectAllocation } from '@/models/monthlyProjectAllocation'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -30,7 +26,6 @@ export default function MonthlyAllocationsPanel({
 }) {
   const searchParams = useSearchParams()
   const { selectedYear, selectedMonth } = getSelectedYearMonth(searchParams)
-
   const pathname = usePathname()
 
   // TODO もっとうまく書けるはず

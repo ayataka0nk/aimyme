@@ -246,3 +246,13 @@ export const stopTimer = async (params: {
     }
   })
 }
+
+export const deleteTimeEntry = async (id: string): Promise<void> => {
+  const { userId } = await getSessionOrFail()
+  await prisma.timeEntry.delete({
+    where: {
+      id: id,
+      userId: userId
+    }
+  })
+}

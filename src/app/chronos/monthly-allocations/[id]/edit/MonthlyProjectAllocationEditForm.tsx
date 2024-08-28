@@ -6,7 +6,6 @@ import { MonthlyProjectAllocation } from '@/models/monthlyProjectAllocation'
 import { useActionState } from 'react'
 import { updateMonthlyProjectAllocationAction } from '../../actions'
 import { Button } from '@/components/Button'
-import { ComboBoxOption } from '@/components/ComboBox/ComboBox'
 import { ProjectComboBox } from '@/app/components/ComboBox/ProjectComboBox'
 import { formatYearMonth } from '@/lib/utils'
 
@@ -19,16 +18,7 @@ export const MonthlyProjectAllocationEditForm = ({
     updateMonthlyProjectAllocationAction,
     undefined
   )
-  const dummy: ComboBoxOption[] = [
-    {
-      value: 'value1',
-      label: 'dummy1'
-    },
-    {
-      value: 'value2',
-      label: 'dummy2'
-    }
-  ]
+
   return (
     <Card layer="surface">
       <form action={dispatch}>

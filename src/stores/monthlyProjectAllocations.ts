@@ -132,3 +132,15 @@ export const updateMonthlyProjectAllocation = async (
     }
   })
 }
+
+export const deleteMonthlyProjectAllocation = async (
+  id: string
+): Promise<void> => {
+  const { userId } = await getSessionOrFail()
+  await prisma.monthlyProjectAllocation.delete({
+    where: {
+      id: id,
+      userId: userId
+    }
+  })
+}

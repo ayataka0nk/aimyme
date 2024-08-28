@@ -73,12 +73,16 @@ const insertData = async () => {
     }
   })
 
+  const now = new Date()
+  const year = now.getFullYear()
+  const month = now.getMonth() + 1
+
   await prisma.monthlyProjectAllocation.create({
     data: {
       projectId: project1.id,
       userId: user.id,
-      year: 2024,
-      month: 8,
+      year: year,
+      month: month,
       allocatedHours: 64
     }
   })
@@ -86,9 +90,25 @@ const insertData = async () => {
     data: {
       projectId: project2.id,
       userId: user.id,
-      year: 2024,
-      month: 8,
+      year: year,
+      month: month,
       allocatedHours: 32
+    }
+  })
+
+  await prisma.timeEntry.create({
+    data: {
+      description: 'タスク1完了',
+      year: year,
+      month: month,
+      startTime: new Date(),
+      endTime: new Date(),
+      project: {
+        connect: { id: project1.id }
+      },
+      user: {
+        connect: { id: user.id }
+      }
     }
   })
 }

@@ -4,10 +4,12 @@ import Link from 'next/link'
 import { ChronosTopTools } from './ChronosTopTools'
 import { getProjects } from '@/services/projects'
 import { getCurrentUserOrFail } from '@/services/authentications'
+import { getMonthlyAllocationsListPath } from './monthly-allocations/paths'
 
 export default async function ChronosPage() {
   const projects = await getProjects({})
   const user = await getCurrentUserOrFail()
+
   return (
     <UserSignlePaneLayout>
       <div>
@@ -20,7 +22,7 @@ export default async function ChronosPage() {
             variant="extended-fab"
             icon="Calendar"
             component={Link}
-            href="/chronos/monthly-allocations"
+            href={getMonthlyAllocationsListPath()}
           >
             月ごとの予定工数
           </Button>
