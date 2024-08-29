@@ -1,5 +1,6 @@
 import { getMonthlyProjectAllocations } from '@/stores/monthlyProjectAllocations'
 import MonthlyAllocationsPanel from './MonthlyAllocationsPanel'
+import { PanelWithTopAppBar } from '@/app/layout/PanelWithTopAppBar'
 
 export default async function Page({
   searchParams
@@ -16,5 +17,9 @@ export default async function Page({
     year,
     month
   })
-  return <MonthlyAllocationsPanel defaultData={defaultData} />
+  return (
+    <PanelWithTopAppBar>
+      <MonthlyAllocationsPanel defaultData={defaultData} />
+    </PanelWithTopAppBar>
+  )
 }

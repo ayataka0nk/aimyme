@@ -5,6 +5,7 @@ import { DeleteConfirmIconButton } from '@/templates/Button/DeleteConfirmIconBut
 import { ServerFlatURLSearchParams } from '@/types'
 import Link from 'next/link'
 import { deleteMonthlyProjectAllocationAction } from '../actions'
+import { PanelWithTopAppBar } from '@/app/layout/PanelWithTopAppBar'
 
 export default async function Page({
   params,
@@ -16,24 +17,26 @@ export default async function Page({
   const datum = await getMonthlyProjectAllocation(params.id)
   const urlSearchParams = new URLSearchParams(searchParams)
   return (
-    <Card>
-      <IconButton
-        className="absolute top-1 right-1"
-        component={Link}
-        icon="PencilSquare"
-        href={`/chronos/monthly-allocations/${
-          params.id
-        }/edit?${urlSearchParams.toString()}`}
-      />
-      <p>{datum.project.name}</p>
-      <p>{datum.year}</p>
-      <p>{datum.month}</p>
-      <p>{datum.allocatedHours}時間</p>
+    <PanelWithTopAppBar>
+      <Card>
+        <IconButton
+          className="absolute top-1 right-1"
+          component={Link}
+          icon="PencilSquare"
+          href={`/chronos/monthly-allocations/${
+            params.id
+          }/edit?${urlSearchParams.toString()}`}
+        />
+        <p>{datum.project.name}</p>
+        <p>{datum.year}</p>
+        <p>{datum.month}</p>
+        <p>{datum.allocatedHours}時間</p>
 
-      <form action={deleteMonthlyProjectAllocationAction}>
-        <input type="hidden" name="id" value={params.id} />
-        <DeleteConfirmIconButton />
-      </form>
-    </Card>
+        <form action={deleteMonthlyProjectAllocationAction}>
+          <input type="hidden" name="id" value={params.id} />
+          <DeleteConfirmIconButton />
+        </form>
+      </Card>
+    </PanelWithTopAppBar>
   )
 }

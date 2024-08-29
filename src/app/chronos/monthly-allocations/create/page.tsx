@@ -1,6 +1,16 @@
-import MonthlyAllocationsPanel from '../@list/MonthlyAllocationsPanel'
-import { MonthlyProjectAllocationCreateForm } from './MonthlyProjectAllocationCreateForm'
+import { PanelWithTopAppBar } from '@/app/layout/PanelWithTopAppBar'
+import { MonthlyAllocationForm } from '../MonthlyAllocationForm'
 
 export default function Page() {
-  return <MonthlyProjectAllocationCreateForm />
+  return (
+    <PanelWithTopAppBar>
+      <MonthlyAllocationForm
+        defaultValues={{
+          yearMonth: '',
+          projectId: '',
+          allocatedHours: ''
+        }}
+      />
+    </PanelWithTopAppBar>
+  )
 }
