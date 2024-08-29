@@ -1,7 +1,6 @@
 'use client'
 import { Button } from '@/components/Button'
 import { useDialog } from '@/components/Dialog'
-import { IconButton } from '@/components/IconButton'
 
 type Props = {
   className?: string
@@ -11,16 +10,15 @@ export const DeleteConfirmIconButton = ({ className }: Props) => {
 
   return (
     <>
-      <IconButton
+      <Button
         className={className}
         icon="Trash"
-        variant="standard"
         color="tertiary"
         type="button"
         onClick={showModal}
       >
         削除
-      </IconButton>
+      </Button>
       <DialogComponent
         headline="削除しますか？"
         supportingText="この操作は取り消せません。"

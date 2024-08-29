@@ -7,7 +7,8 @@ import { useSearchParams } from '@/lib/useSearchParams'
 import {
   calcNextYearMonth,
   calcPrevYearMonth,
-  formatToZonedDateTimeWithoutSeconds,
+  formatToZonedHourMinute,
+  formatToZonedOnlyDate,
   millisecondsToHours
 } from '@/lib/utils'
 import { TimeEntrySummary } from '@/models/timeEntry'
@@ -72,6 +73,7 @@ export default function ListPanel({
       <div className="grid gap-2">
         {data.map((datum) => (
           <Card
+            className="min-w-0"
             layer="surface-container-high"
             key={datum.id}
             component={Link}
@@ -79,10 +81,21 @@ export default function ListPanel({
               datum.id
             }?${searchParams.toString()}`}
           >
+            <p>
+              <span className="mr-2">
+                {formatToZonedOnlyDate(datum.startTime)}日
+              </span>
+              <span>{formatToZonedHourMinute(datum.startTime)}</span>
+              <span className="mx-1">~</span>
+              <span>{formatToZonedHourMinute(datum.endTime)}</span>
+              {datum.endTime && (
+                <span className="ml-2">
+                  ({millisecondsToHours(datum.duration)}h)
+                </span>
+              )}
+            </p>
             <p>{datum.project.name}</p>
-            <p>{formatToZonedDateTimeWithoutSeconds(datum.startTime)}</p>
-            <p>{formatToZonedDateTimeWithoutSeconds(datum.endTime)}</p>
-            <p>{millisecondsToHours(datum.duration)}時間</p>
+            <p className="truncate">{datum.description}</p>
           </Card>
         ))}
       </div>

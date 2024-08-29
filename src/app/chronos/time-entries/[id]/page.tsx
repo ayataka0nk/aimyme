@@ -4,9 +4,13 @@ import { getTimeEntry } from '@/stores/timeEntries'
 import { ServerFlatURLSearchParams } from '@/types'
 import Link from 'next/link'
 import { PanelWithTopAppBar } from '@/app/layout/PanelWithTopAppBar'
-import { millisecondsToHours } from '@/lib/utils'
+import {
+  formatToZonedDateTimeWithoutSeconds,
+  millisecondsToHours
+} from '@/lib/utils'
 import { DeleteConfirmIconButton } from '@/templates/Button/DeleteConfirmIconButton'
 import { deleteTimeEntryAction } from '../actions'
+import { Divider } from '@/components/Divider'
 
 export default async function Page({
   params,
@@ -29,10 +33,20 @@ export default async function Page({
           }/edit?${urlSearchParams.toString()}`}
         />
         <p>{datum.project.name}</p>
-        <p>{datum.year}</p>
-        <p>{datum.month}</p>
-        <p>{millisecondsToHours(datum.duration)}時間</p>
-        <form action={deleteTimeEntryAction}>
+        <p>
+          {datum.year}年{datum.month}月
+        </p>
+
+        <p>
+          <span>{formatToZonedDateTimeWithoutSeconds(datum.startTime)}</span>
+          <span className="mx-1">~</span>
+          <span>{formatToZonedDateTimeWithoutSeconds(datum.endTime)}</span>
+        </p>
+        <p>計: {millisecondsToHours(datum.duration)} 時間</p>
+
+        <div className="whitespace-pre-wrap py-1">{datum.description}</div>
+        <Divider className="my-4" />
+        <form className="flex justify-end" action={deleteTimeEntryAction}>
           <input type="hidden" name="id" value={params.id} />
           <DeleteConfirmIconButton />
         </form>

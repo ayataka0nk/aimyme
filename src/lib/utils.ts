@@ -141,6 +141,26 @@ export const formatToZonedDateTimeWithoutSeconds = (
   return format(toZonedTime(date, timeZone), 'yyyy-MM-dd HH:mm')
 }
 
+export const formatToZonedOnlyDate = (
+  date?: Date,
+  timeZone: string = 'Asia/Tokyo'
+) => {
+  if (typeof date === 'undefined') {
+    return ''
+  }
+  return format(toZonedTime(date, timeZone), 'd')
+}
+
+export const formatToZonedHourMinute = (
+  date?: Date,
+  timeZone: string = 'Asia/Tokyo'
+) => {
+  if (typeof date === 'undefined') {
+    return ''
+  }
+  return format(toZonedTime(date, timeZone), 'HH:mm')
+}
+
 export function millisecondsToHours<T extends number | undefined>(
   milliseconds: T
 ): T extends number ? number : undefined {
