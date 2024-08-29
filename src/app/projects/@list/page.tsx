@@ -1,4 +1,4 @@
-import { getProjects } from '@/services/projects'
+import { getProjects } from '@/stores/projects'
 import { ProjectsPanel } from './ProjectsPanel'
 
 export default async function ProjectsPage({

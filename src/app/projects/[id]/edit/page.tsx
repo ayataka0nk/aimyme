@@ -1,5 +1,5 @@
-import { getProject } from '@/services/projects'
-import { ProjectEditForm } from './ProjectEditForm'
+import { getProject } from '@/stores/projects'
+import { ProjectForm } from '../../ProjectForm'
 
 export default async function ProjectEditPage({
   params
@@ -9,7 +9,7 @@ export default async function ProjectEditPage({
   const project = await getProject(params.id)
   return (
     <div>
-      <ProjectEditForm project={project} />
+      <ProjectForm id={project.id} defaultValues={project} />
     </div>
   )
 }

@@ -5,17 +5,21 @@ import { Button } from '@/components/Button'
 import { TextField } from '@/components/TextField'
 import { TextArea } from '@/components/TextArea'
 import { useActionState } from 'react'
-import { storeProjectAction } from '../actions'
+import { ProjectFormValues, upsertProjectAction } from './actions'
 
-export const ProjectCreateForm = () => {
-  const [state, dispatch] = useActionState(storeProjectAction, undefined)
+type Props = {
+  id?: string
+  defaultValues: ProjectFormValues
+}
+export const ProjectForm = ({ id, defaultValues }: Props) => {
+  const [state, dispatch] = useActionState(upsertProjectAction, {
+    values: defaultValues
+  })
 
   return (
     <Card layer="surface">
-      <div className="mb-4 flex justify-between items-center">
-        <p>新しいプロジェクト</p>
-      </div>
       <form action={dispatch}>
+        {id && <input type="hidden" name="id" value={id} />}
         <div>
           <TextField
             id="name"

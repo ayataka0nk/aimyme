@@ -2,18 +2,18 @@ import { Button } from '@/components/Button'
 import { UserSignlePaneLayout } from '../layout/UserSinglePaneLayout'
 import Link from 'next/link'
 import { ChronosTopTools } from './ChronosTopTools'
-import { getProjects } from '@/services/projects'
 import { getCurrentUserOrFail } from '@/services/authentications'
 import { getMonthlyAllocationsListPath } from './monthly-allocations/paths'
+import { getProjects } from '@/stores/projects'
 
 export default async function ChronosPage() {
-  const projects = await getProjects({})
+  const projects = await getProjects()
   const user = await getCurrentUserOrFail()
 
   return (
     <UserSignlePaneLayout>
       <div>
-        <h1>Chronos Page</h1>
+        <h1>Chronos</h1>
         <div className="py-4">
           <ChronosTopTools projects={projects} user={user} />
         </div>

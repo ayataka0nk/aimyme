@@ -1,7 +1,10 @@
 import { Card } from '@/components/Card'
+import { Divider } from '@/components/Divider'
 import { IconButton } from '@/components/IconButton'
-import { getProject } from '@/services/projects'
+import { DeleteConfirmIconButton } from '@/templates/Button/DeleteConfirmIconButton'
 import Link from 'next/link'
+import { archiveProjectAction } from '../actions'
+import { getProject } from '@/stores/projects'
 
 export default async function ShowProjectPage({
   params,
@@ -25,6 +28,11 @@ export default async function ShowProjectPage({
         icon="PencilSquare"
         href={`/projects/${params.id}/edit?${urlSearchParams.toString()}`}
       />
+      <Divider className="my-2" />
+      <form action={archiveProjectAction}>
+        <input type="hidden" name="id" value={project.id} />
+        <DeleteConfirmIconButton />
+      </form>
     </Card>
   )
 }

@@ -1,4 +1,4 @@
-import { SafeFormData } from '@/lib/SafeFormData'
+import { SafeFormData } from '@/lib/SafeFormData2'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 export const useKeywordSearch = () => {
@@ -8,7 +8,7 @@ export const useKeywordSearch = () => {
   const pathname = usePathname()
   const search = (formData: FormData) => {
     const data = new SafeFormData(formData)
-    const keyword = data.getStringOptional('keyword')
+    const keyword = data.getString('keyword')
     const urlSearchParams = new URLSearchParams()
     if (keyword) {
       urlSearchParams.set('keyword', keyword)

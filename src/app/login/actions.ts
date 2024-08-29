@@ -1,6 +1,6 @@
 'use server'
 
-import { SafeFormData } from '@/lib/SafeFormData'
+import { SafeFormData } from '@/lib/SafeFormData2'
 import { SchemaValidationErrorBag } from '@/lib/SchemaValidationErrorBag'
 import { authenticate } from '@/services/authentications'
 import { setSession } from '@/services/sessions'
