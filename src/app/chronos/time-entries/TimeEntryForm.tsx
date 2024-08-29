@@ -35,7 +35,7 @@ export const TimeEntryForm = ({ id, defaultValues }: Props) => {
           <TextField
             id="yearMonth"
             name="yearMonth"
-            label="年月a"
+            label="年月"
             defaultValue={state.values.yearMonth}
             error={state?.errors?.yearMonth}
           />
