@@ -86,8 +86,13 @@ export const parseUtcDateTime = <
     return undefined as ParseUtcDateTimeResult<D, T>
   }
 
-  const parsedDate = parse(`${date} ${time}`, 'yyyy-MM-dd HH:mm:ss', new Date())
+  const refDate = new Date()
+  console.log('refDate', refDate)
+
+  const parsedDate = parse(`${date} ${time}`, 'yyyy-MM-dd HH:mm:ss', refDate)
+  console.log('parsedDate', parsedDate)
   const utcDateTime = toZonedTime(parsedDate, timeZone)
+  console.log('utcDateTime', utcDateTime)
 
   return utcDateTime as ParseUtcDateTimeResult<D, T>
 }
