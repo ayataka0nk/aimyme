@@ -3,7 +3,7 @@
 import { SafeFormData } from '@/lib/SafeFormData'
 import { SchemaValidationErrorBag } from '@/lib/SchemaValidationErrorBag'
 import { FormErrors } from '@/lib/types'
-import { parseUtcDateTime, parseYearMonth } from '@/lib/utils'
+import { fromZonedTimeToUtc, parseYearMonth } from '@/lib/utils'
 import {
   optionalDate,
   optionalString,
@@ -81,8 +81,8 @@ export const upsertTimeEntryAction = async (
       description: validated.description,
       year: year,
       month: month,
-      startTime: parseUtcDateTime(validated.startDate, validated.startTime),
-      endTime: parseUtcDateTime(validated.endDate, validated.endTime)
+      startTime: fromZonedTimeToUtc(validated.startDate, validated.startTime),
+      endTime: fromZonedTimeToUtc(validated.endDate, validated.endTime)
     }
 
     if (typeof validated.id === 'undefined') {

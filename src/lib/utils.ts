@@ -1,5 +1,5 @@
 import { format, parse, parseISO } from 'date-fns'
-import { toZonedTime } from 'date-fns-tz'
+import { fromZonedTime, toZonedTime } from 'date-fns-tz'
 
 export type YearMonth = {
   year: number
@@ -57,7 +57,7 @@ export const getCurrentYearMonth = () => {
 }
 
 type ParsedDate<T> = T extends string ? Date : Date | undefined
-export const parseDate = <T extends string | undefined>(
+export const parseIsoDate = <T extends string | undefined>(
   date: T
 ): ParsedDate<T> => {
   if (typeof date === 'undefined') {
@@ -74,7 +74,7 @@ type ParseUtcDateTimeResult<D, T> = D extends string
     : undefined
   : undefined
 
-export const parseUtcDateTime = <
+export const fromZonedTimeToUtc = <
   D extends MaybeUndefined<string>,
   T extends MaybeUndefined<string>
 >(
@@ -86,14 +86,8 @@ export const parseUtcDateTime = <
     return undefined as ParseUtcDateTimeResult<D, T>
   }
 
-  const refDate = new Date()
-  console.log('refDate', refDate)
-
-  const parsedDate = parse(`${date} ${time}`, 'yyyy-MM-dd HH:mm:ss', refDate)
-  console.log('parsedDate', parsedDate)
-  const utcDateTime = toZonedTime(parsedDate, timeZone)
-  console.log('utcDateTime', utcDateTime)
-
+  const dateTimeStr = `${date} ${time}`
+  const utcDateTime = fromZonedTime(dateTimeStr, timeZone)
   return utcDateTime as ParseUtcDateTimeResult<D, T>
 }
 
