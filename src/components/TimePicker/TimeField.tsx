@@ -21,12 +21,15 @@ const calculateTimeString = (hour: string, minute: string, period: Period) => {
   }
   let hourNumber = parseInt(hour)
   const minuteNumber = parseInt(minute)
-  if (hourNumber === 12) {
+
+  if (hourNumber === 12 && period === 'AM') {
+    // AM12時は0時に変換
     hourNumber = 0
+  } else if (0 <= hourNumber && hourNumber < 12 && period === 'PM') {
+    // 12時間表記で、PMの場合、12時間加算
+    hourNumber = hourNumber + 12
   }
-  if (period === 'PM') {
-    hourNumber += 12
-  }
+
   const hourString = hourNumber.toString().padStart(2, '0')
   const minuteString = minuteNumber.toString().padStart(2, '0')
 
@@ -49,7 +52,10 @@ const parseTime = (
     return
   }
   const [hour, minute] = timeString.split(':').map(Number)
-  const period = hour < 12 ? 'AM' : 'PM'
+  // 0時->AM12時
+  // 12時->PM12時
+  // 24時->AM12時
+  const period = hour < 12 || 24 <= hour ? 'AM' : 'PM'
   // 12時間制に変換
   const hour12 = hour % 12 || 12 // 0時または12時の場合は12に変換
   const returnHour = hour12.toString().padStart(2, '0')
@@ -197,6 +203,7 @@ export const TimeField = forwardRef<HTMLInputElement, TextFieldProps>(
         return
       }
       const timeString = calculateTimeString(hour, minute, period)
+      console.log(timeString)
       changeValue(timeString)
       closeModal()
     }
