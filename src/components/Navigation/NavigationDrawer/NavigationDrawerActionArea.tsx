@@ -8,7 +8,7 @@ export const NavigationDrawerActionArea = ({
   ...props
 }: Props) => {
   return (
-    <div className={`${className} px-3 mb-4`} {...props}>
+    <div className={`${className} min-h-14 px-3 mb-4`} {...props}>
       {children}
     </div>
   )

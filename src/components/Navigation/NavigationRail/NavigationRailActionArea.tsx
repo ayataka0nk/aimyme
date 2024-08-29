@@ -7,7 +7,10 @@ export const NavigationRailActionArea = ({
   ...props
 }: Props) => {
   return (
-    <div className={`${className} flex flex-col items-center`} {...props}>
+    <div
+      className={`${className} min-h-14 flex flex-col items-center`}
+      {...props}
+    >
       {children}
     </div>
   )

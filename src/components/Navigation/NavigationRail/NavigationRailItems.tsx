@@ -9,7 +9,7 @@ export const NavigationRailItems = ({
 }: Props) => {
   return (
     <div
-      className={`flex flex-col items-center gap-3 mt-8 ${className}`}
+      className={`flex flex-col items-center gap-3 mt-4 ${className}`}
       {...props}
     >
       {children}

@@ -32,29 +32,30 @@ export const NavigationRail = ({
       >
         <NavigationRailButton />
       </NavigationRailHeader>
-
-      {action && (
-        <NavigationRailActionArea>
-          {action.href && (
-            <Button
-              variant="fab"
-              color="secondary"
-              icon={action.icon}
-              component={Link}
-              href={action.href}
-            />
-          )}
-          {action.onClick && (
-            <Button
-              variant="fab"
-              color="secondary"
-              icon={action.icon}
-              onClick={action.onClick}
-              type="button"
-            />
-          )}
-        </NavigationRailActionArea>
-      )}
+      <NavigationRailActionArea>
+        {action && (
+          <>
+            {action.href && (
+              <Button
+                variant="fab"
+                color="secondary"
+                icon={action.icon}
+                component={Link}
+                href={action.href}
+              />
+            )}
+            {action.onClick && (
+              <Button
+                variant="fab"
+                color="secondary"
+                icon={action.icon}
+                onClick={action.onClick}
+                type="button"
+              />
+            )}
+          </>
+        )}
+      </NavigationRailActionArea>
       <NavigationRailItems>
         {items.map((item, index) => {
           if (item.href) {

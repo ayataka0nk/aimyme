@@ -33,31 +33,34 @@ export const NavigationDrawerStandard = ({
       >
         {logo}
       </NavigationDrawerHeader>
-      {action && (
-        <NavigationDrawerActionArea>
-          {action.href && (
-            <Button
-              variant="extended-fab"
-              className="w-full"
-              href={action.href}
-              icon={action.icon}
-              component={Link}
-            >
-              {action.labelText}
-            </Button>
-          )}
-          {action.onClick && (
-            <Button
-              variant="extended-fab"
-              icon={action.icon}
-              onClick={action.onClick}
-              type="button"
-            >
-              {action.labelText}
-            </Button>
-          )}
-        </NavigationDrawerActionArea>
-      )}
+
+      <NavigationDrawerActionArea>
+        {action && (
+          <>
+            {action.href && (
+              <Button
+                variant="extended-fab"
+                className="w-full"
+                href={action.href}
+                icon={action.icon}
+                component={Link}
+              >
+                {action.labelText}
+              </Button>
+            )}
+            {action.onClick && (
+              <Button
+                variant="extended-fab"
+                icon={action.icon}
+                onClick={action.onClick}
+                type="button"
+              >
+                {action.labelText}
+              </Button>
+            )}
+          </>
+        )}
+      </NavigationDrawerActionArea>
       <NavigationDrawerItems>
         {items.map((item, index) => {
           if (item.href) {
