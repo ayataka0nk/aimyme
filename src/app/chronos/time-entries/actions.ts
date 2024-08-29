@@ -1,6 +1,6 @@
 'use server'
 
-import { SafeFormData } from '@/lib/SafeFormData'
+import { SafeFormData } from '@/lib/SafeFormData2'
 import { SchemaValidationErrorBag } from '@/lib/SchemaValidationErrorBag'
 import { FormErrors } from '@/lib/types'
 import { fromZonedTimeToUtc, parseYearMonth } from '@/lib/utils'
@@ -53,7 +53,7 @@ export const upsertTimeEntryAction = async (
 ) => {
   const searchParams = headers().get('x-search-params')
   const data = new SafeFormData(formData)
-  const id = data.getStringOptional('id')
+  const id = data.getString('id')
   const projectId = data.getString('projectId')
   const description = data.getString('description')
   const yearMonth = data.getString('yearMonth')
