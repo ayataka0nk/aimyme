@@ -5,15 +5,15 @@ import {
 } from './actions'
 import { Card } from '@/components/Card'
 import { TextField } from '@/components/TextField'
-import { useActionState } from 'react'
 import { ProjectComboBox } from '@/app/components/ComboBox/ProjectComboBox'
 import { Button } from '@/components/Button'
+import { useFormState } from 'react-dom'
 type Props = {
   defaultValues: MonthlyAllocationFormValues
   id?: string
 }
 export const MonthlyAllocationForm = ({ defaultValues, id }: Props) => {
-  const [state, dispatch] = useActionState(upsertMonthlyAllocationAction, {
+  const [state, dispatch] = useFormState(upsertMonthlyAllocationAction, {
     values: defaultValues
   })
   return (

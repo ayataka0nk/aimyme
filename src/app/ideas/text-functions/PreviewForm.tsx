@@ -2,14 +2,14 @@
 import { Button } from '@/components/Button'
 import { Card } from '@/components/Card'
 import { TextArea } from '@/components/TextArea'
-import { useActionState } from 'react'
 import { executeTextFunctionAction } from './actions'
+import { useFormState } from 'react-dom'
 
 type Props = {
   definition: string
 }
 export const PreviewForm = ({ definition }: Props) => {
-  const [state, dispatch] = useActionState(executeTextFunctionAction, {
+  const [state, dispatch] = useFormState(executeTextFunctionAction, {
     input: '',
     output: ''
   })

@@ -4,15 +4,15 @@ import { Card } from '@/components/Card'
 import { Button } from '@/components/Button'
 import { TextField } from '@/components/TextField'
 import { TextArea } from '@/components/TextArea'
-import { useActionState } from 'react'
 import { ProjectFormValues, upsertProjectAction } from './actions'
+import { useFormState } from 'react-dom'
 
 type Props = {
   id?: string
   defaultValues: ProjectFormValues
 }
 export const ProjectForm = ({ id, defaultValues }: Props) => {
-  const [state, dispatch] = useActionState(upsertProjectAction, {
+  const [state, dispatch] = useFormState(upsertProjectAction, {
     values: defaultValues
   })
 

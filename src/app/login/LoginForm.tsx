@@ -3,10 +3,10 @@
 import { loginFormAction } from './actions'
 import { TextField } from '@/components/TextField'
 import { Button } from '@/components/Button'
-import { useActionState } from 'react'
+import { useFormState } from 'react-dom'
 
 export const LoginForm = () => {
-  const [state, dispatch] = useActionState(loginFormAction, undefined)
+  const [state, dispatch] = useFormState(loginFormAction, undefined)
   return (
     <form action={dispatch}>
       {state?.errors?.global && <p>{state?.errors?.global}</p>}

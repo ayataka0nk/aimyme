@@ -4,12 +4,13 @@ import { TextField } from '@/components/TextField'
 import { TextArea } from '@/components/TextArea'
 import { Button } from '@/components/Button'
 import { storeTextFunctionAction } from '../actions'
-import { useActionState, useState } from 'react'
+import { useState } from 'react'
 import { Card } from '@/components/Card'
 import { PreviewForm } from '../PreviewForm'
+import { useFormState } from 'react-dom'
 
 export const TextFunctionCreateForm = () => {
-  const [state, dispatch] = useActionState(storeTextFunctionAction, undefined)
+  const [state, dispatch] = useFormState(storeTextFunctionAction, undefined)
   const [name, setName] = useState('')
   const [definition, setDefinition] = useState('')
   return (

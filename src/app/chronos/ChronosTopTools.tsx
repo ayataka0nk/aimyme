@@ -2,8 +2,8 @@
 import { Button } from '@/components/Button'
 import { ProjectSummary, User } from '@/types'
 import { timerAction } from './actions'
-import { useActionState } from 'react'
 import { InProgressTimeEntryCard } from './InProgressTimeEntryCard'
+import { useFormState } from 'react-dom'
 
 type Props = {
   projects: ProjectSummary[]
@@ -11,7 +11,7 @@ type Props = {
 }
 
 export const ChronosTopTools = ({ projects, user }: Props) => {
-  const [state, timerDispatch] = useActionState(timerAction, {
+  const [state, timerDispatch] = useFormState(timerAction, {
     timeEntryId: user.inProgressTimeEntryId
   })
   return (

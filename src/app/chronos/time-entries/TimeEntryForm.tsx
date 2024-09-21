@@ -2,7 +2,6 @@
 
 import { Card } from '@/components/Card'
 import { TextField } from '@/components/TextField'
-import { useActionState } from 'react'
 
 import { Button } from '@/components/Button'
 import { ProjectComboBox } from '@/app/components/ComboBox/ProjectComboBox'
@@ -14,6 +13,7 @@ import {
 import { TimeField } from '@/components/TimePicker'
 import { DateFieldModal } from '@/components/DatePicker'
 import { TextArea } from '@/components/TextArea'
+import { useFormState } from 'react-dom'
 
 type Props = {
   id?: string
@@ -21,7 +21,7 @@ type Props = {
 }
 
 export const TimeEntryForm = ({ id, defaultValues }: Props) => {
-  const [state, dispatch] = useActionState<StoreFormState, FormData>(
+  const [state, dispatch] = useFormState<StoreFormState, FormData>(
     upsertTimeEntryAction,
     {
       values: defaultValues

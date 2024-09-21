@@ -4,20 +4,21 @@ import { TextField } from '@/components/TextField'
 import { TextArea } from '@/components/TextArea'
 import { Button } from '@/components/Button'
 import { TextFunctionDefinition } from '@/types'
-import { useActionState, useState } from 'react'
+import { useState } from 'react'
 import {
   deleteTextFunctionAction,
   updateTextFunctionAction
 } from '../../actions'
 import { Card } from '@/components/Card'
 import { PreviewForm } from '../../PreviewForm'
+import { useFormState } from 'react-dom'
 
 export const TextFunctionEditForm = ({
   datum
 }: {
   datum: TextFunctionDefinition
 }) => {
-  const [state, dispatch] = useActionState(updateTextFunctionAction, undefined)
+  const [state, dispatch] = useFormState(updateTextFunctionAction, undefined)
   const [name, setName] = useState(datum.name)
   const [definition, setDefinition] = useState(datum.definition)
   return (
