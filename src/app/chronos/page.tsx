@@ -34,6 +34,14 @@ export default async function ChronosPage() {
           >
             日ごとの作業記録
           </Button>
+          <Button
+            variant="extended-fab"
+            icon="DocumentChartBar"
+            component={Link}
+            href="/chronos/analytics"
+          >
+            分析
+          </Button>
         </div>
       </div>
     </UserSignlePaneLayout>
