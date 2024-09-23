@@ -1,6 +1,5 @@
 'use client'
 import React from 'react'
-import { formatToZonedDate } from '@/lib/utils'
 import { DailyAnalytics } from '@/services/analytics'
 import {
   BarChart,
@@ -12,16 +11,24 @@ import {
   Legend
 } from 'recharts'
 
+function formatDateToJapanese(date: Date): string {
+  const dayOfWeek = ['日', '月', '火', '水', '木', '金', '土']
+  const day = date.getDate()
+  const weekday = dayOfWeek[date.getDay()]
+
+  return `${day}日(${weekday})`
+}
+
 const convertDailyAnalyticsToRechartsData = (
   dailyAnalytics: DailyAnalytics
 ) => {
   return dailyAnalytics.map((record) => {
     const result: { [key: string]: string | number } = {
-      name: formatToZonedDate(record.date)
+      name: formatDateToJapanese(record.date)
     }
 
     record.timeEntries.forEach((entry) => {
-      result[entry.projectName] = entry.totalDuration
+      result[entry.projectName] = Math.round(entry.totalDuration * 10) / 10
     })
 
     return result
@@ -55,15 +62,23 @@ type Props = {
 export const DailyAnalyticsGraph = ({ data }: Props) => {
   const newData = convertDailyAnalyticsToRechartsData(data)
   const uniqueProjects = getUniqueProjects(data)
-
+  const dataCount = newData.length
   return (
-    <div className="w-full h-[500px]">
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={newData}>
-          <XAxis dataKey="name" />
-          <YAxis />
+    <div>
+      <ResponsiveContainer width="100%" height={dataCount * 50}>
+        <BarChart
+          data={newData}
+          layout="vertical"
+          barSize={20}
+          margin={{ bottom: 10 }}
+        >
+          <XAxis
+            type="number"
+            label={{ value: '時間 (h)', position: 'bottom', offset: -3 }}
+          />
+          <YAxis dataKey="name" type="category" width={100} />
           <Tooltip />
-          <Legend />
+          <Legend verticalAlign="top" />
           {uniqueProjects.map((project, index) => (
             <Bar
               key={project}

@@ -60,7 +60,7 @@ export default async function AnalyticsPage({
           href={`${pathname}?${nextSearchParams.toString()}`}
         />
       </div>
-      <div>
+      {/* <div>
         {data.map((record, index) => (
           <div key={index}>
             <div>{formatToZonedDate(record.date)}</div>
@@ -74,7 +74,7 @@ export default async function AnalyticsPage({
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
       <div>
         <DailyAnalyticsGraph data={data} />
       </div>
