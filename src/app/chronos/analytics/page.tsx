@@ -1,4 +1,3 @@
-import { Button } from '@/components/Button'
 import { IconButton } from '@/components/IconButton'
 import { formatToZonedDate, getCurrentYearMonth } from '@/lib/utils'
 import { getTimeEntriesGroupedByDate } from '@/services/analytics'
@@ -6,6 +5,7 @@ import { getSessionOrFail } from '@/services/sessions'
 import { headers } from 'next/headers'
 import Link from 'next/link'
 import { redirect, RedirectType } from 'next/navigation'
+import { DailyAnalyticsGraph } from './DailyAnalyticsGraph'
 
 export default async function AnalyticsPage({
   searchParams
@@ -74,6 +74,9 @@ export default async function AnalyticsPage({
             </div>
           </div>
         ))}
+      </div>
+      <div>
+        <DailyAnalyticsGraph data={data} />
       </div>
     </div>
   )
