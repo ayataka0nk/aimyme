@@ -65,7 +65,7 @@ export const DailyAnalyticsGraph = ({ data }: Props) => {
   const dataCount = newData.length
   return (
     <div>
-      <ResponsiveContainer width="100%" height={dataCount * 50}>
+      <ResponsiveContainer width="100%" height={65 + dataCount * 35}>
         <BarChart
           data={newData}
           layout="vertical"
