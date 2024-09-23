@@ -8,7 +8,8 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  Legend
+  Legend,
+  LabelList
 } from 'recharts'
 
 function formatDateToJapanese(date: Date): string {
@@ -77,7 +78,7 @@ export const DailyAnalyticsGraph = ({ data }: Props) => {
             type="number"
             label={{ value: '時間 (h)', position: 'bottom', offset: -3 }}
           />
-          <YAxis dataKey="name" type="category" width={100} />
+          <YAxis dataKey="name" type="category" width={100} tickLine={false} />
           <Tooltip />
           <Legend verticalAlign="top" />
           {uniqueProjects.map((project, index) => (
@@ -86,7 +87,13 @@ export const DailyAnalyticsGraph = ({ data }: Props) => {
               stackId="a"
               dataKey={project}
               fill={colors[index % colors.length]}
-            />
+            >
+              <LabelList
+                dataKey={project}
+                position="insideBottom"
+                style={{ fill: 'white' }}
+              />
+            </Bar>
           ))}
         </BarChart>
       </ResponsiveContainer>

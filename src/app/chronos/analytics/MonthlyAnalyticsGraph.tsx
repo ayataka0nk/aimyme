@@ -4,7 +4,7 @@ import { MonthlyAnalytics } from '@/services/analytics'
 import {
   Bar,
   BarChart,
-  Legend,
+  LabelList,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -31,10 +31,20 @@ export const MonthlyAnalyticsGraph = ({ data }: Props) => {
             label={{ value: '時間 (h)', position: 'bottom', offset: -3 }}
             domain={[0, max]}
           />
-          <YAxis dataKey="projectName" type="category" width={100} />
+          <YAxis
+            dataKey="projectName"
+            type="category"
+            width={100}
+            tickLine={false}
+          />
           <Tooltip />
-          <Legend verticalAlign="top" />
-          <Bar dataKey="totalDuration" fill="#8884d8" />
+          <Bar dataKey="totalDuration" fill="#8884d8">
+            <LabelList
+              dataKey="totalDuration"
+              position="insideBottom"
+              style={{ fill: 'white' }}
+            />
+          </Bar>
         </BarChart>
       </ResponsiveContainer>
     </div>
