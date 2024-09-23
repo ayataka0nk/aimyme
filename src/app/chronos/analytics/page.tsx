@@ -1,11 +1,15 @@
 import { IconButton } from '@/components/IconButton'
 import { formatToZonedDate, getCurrentYearMonth } from '@/lib/utils'
-import { getTimeEntriesGroupedByDate } from '@/services/analytics'
+import {
+  getMonthlyTimeEntries,
+  getTimeEntriesGroupedByDate
+} from '@/services/analytics'
 import { getSessionOrFail } from '@/services/sessions'
 import { headers } from 'next/headers'
 import Link from 'next/link'
 import { redirect, RedirectType } from 'next/navigation'
 import { DailyAnalyticsGraph } from './DailyAnalyticsGraph'
+import { MonthlyAnalyticsGraph } from './MonthlyAnalyticsGraph'
 
 export default async function AnalyticsPage({
   searchParams
@@ -34,6 +38,8 @@ export default async function AnalyticsPage({
     month,
     'Asia/Tokyo'
   )
+
+  const monthlyAnalytics = await getMonthlyTimeEntries(userId, year, month)
   const pathname = headers().get('x-pathname')
   const prevSearchParams = new URLSearchParams(searchParams)
   prevSearchParams.set('year', `${year}`)
@@ -60,23 +66,11 @@ export default async function AnalyticsPage({
           href={`${pathname}?${nextSearchParams.toString()}`}
         />
       </div>
-      {/* <div>
-        {data.map((record, index) => (
-          <div key={index}>
-            <div>{formatToZonedDate(record.date)}</div>
-            <div>
-              {record.timeEntries.map((timeEntry, index) => (
-                <div key={index}>
-                  <div>{timeEntry.projectName}</div>
-                  <div>{timeEntry.totalDuration}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div> */}
       <div>
         <DailyAnalyticsGraph data={data} />
+      </div>
+      <div className="mt-6">
+        <MonthlyAnalyticsGraph data={monthlyAnalytics} />
       </div>
     </div>
   )

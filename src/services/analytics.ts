@@ -25,7 +25,7 @@ export async function getTimeEntriesGroupedByDate(
           DATE((te.start_time AT TIME ZONE 'UTC') AT TIME ZONE ${timeZone}) AS date,
           te.project_id,
           p.name AS project_name,
-          SUM(EXTRACT(EPOCH FROM (te.end_time - te.start_time)) / 3600) AS total_duration
+          ROUND(SUM(EXTRACT(EPOCH FROM (te.end_time - te.start_time)) / 3600)::numeric, 1) AS total_duration
         FROM
           time_entries te
           INNER JOIN projects p ON te.project_id = p.id
@@ -56,4 +56,39 @@ export async function getTimeEntriesGroupedByDate(
     `
 
   return timeEntriesByDate
+}
+
+type MonthlyAnalyticsTimeEntry = {
+  projectId: string
+  projectName: string
+  totalDuration: number
+}
+
+export type MonthlyAnalytics = MonthlyAnalyticsTimeEntry[]
+
+export async function getMonthlyTimeEntries(
+  userId: string,
+  year: number,
+  month: number
+): Promise<MonthlyAnalytics> {
+  const monthlyTimeEntries = await prisma.$queryRaw<MonthlyAnalytics>`
+    SELECT
+      te.project_id AS "projectId",
+      p.name AS "projectName",
+      ROUND(SUM(EXTRACT(EPOCH FROM (te.end_time - te.start_time)) / 3600)::numeric, 1) AS "totalDuration"
+    FROM
+      time_entries te
+      INNER JOIN projects p ON te.project_id = p.id
+    WHERE
+      te.user_id = ${userId} AND
+      te.year = ${year} AND
+      te.month = ${month}
+    GROUP BY
+      te.project_id,
+      p.name
+    ORDER BY
+      "totalDuration" DESC;
+  `
+
+  return monthlyTimeEntries
 }

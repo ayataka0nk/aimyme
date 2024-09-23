@@ -28,7 +28,7 @@ const convertDailyAnalyticsToRechartsData = (
     }
 
     record.timeEntries.forEach((entry) => {
-      result[entry.projectName] = Math.round(entry.totalDuration * 10) / 10
+      result[entry.projectName] = entry.totalDuration
     })
 
     return result
@@ -63,6 +63,7 @@ export const DailyAnalyticsGraph = ({ data }: Props) => {
   const newData = convertDailyAnalyticsToRechartsData(data)
   const uniqueProjects = getUniqueProjects(data)
   const dataCount = newData.length
+
   return (
     <div>
       <ResponsiveContainer width="100%" height={65 + dataCount * 35}>
